@@ -19,6 +19,7 @@ export async function createApp() {
             stream: {
                 write: (log) => logger.info(log),
             },
+            skip: (req) => ["healthcheck", "docs"].some((path) => req.originalUrl.includes(path)),
         })
     )
     app.use(
@@ -31,7 +32,7 @@ export async function createApp() {
     Server.loadServices(app, "routes/*", __dirname)
 
     // Only publish docs if running in non-prod mode
-    !IS_PROD && Server.swagger(app, { endpoint: "docs", filePath: "./dist/swagger.json" })
+    !IS_PROD && Server.swagger(app, { endpoint: "docs", filePath: "./dist/swagger.json", schemes: ["http", "https"] })
 
     return app
 }
