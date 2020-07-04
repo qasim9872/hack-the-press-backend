@@ -1,5 +1,26 @@
-export function magic(text: string) {
-    return text.split("")
+import { createServer } from "http"
+import { DB_URI } from "./config/database.config"
+import { connectMongo, disconnectMongo } from "./setup/mongoose.setup"
+import { NODE_ENV, PORT } from "./config/app.config"
+import logger from "./utils/logger/index"
+import { createApp } from "./app"
+
+export async function initiateApp() {
+    await connectMongo(DB_URI)
+
+    const app = await createApp()
+    const server = createServer(app)
+
+    server.listen(PORT, () => {
+        logger.info(`API is running in ${NODE_ENV} mode and is available at ${PORT}`)
+    })
 }
 
-console.log(magic("hello"))
+initiateApp()
+
+// If the Node process ends, close the Mongoose connection
+process.on("SIGINT", () => {
+    logger.warn(`SIGINT received - closing app`)
+    disconnectMongo()
+    process.exit(0)
+})
