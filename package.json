@@ -11,7 +11,7 @@
         "staged-test": "npm run test -- --bail --findRelatedTests",
         "precommit": "npm run test",
         "clean": "shx rm -rf node_modules/ dist/ coverage/",
-        "pretty-base": "prettier '**/*.{ts, js, json}'",
+        "pretty-base": "prettier \"**/*.{ts, js, json}\"",
         "format": "npm run pretty-base --write",
         "lint": "eslint --fix 'src/**/*.{ts,tsx}'"
     },
@@ -27,7 +27,7 @@
         "eslint-plugin-prettier": "^3.1.2",
         "husky": "^4.2.3",
         "jest": "^25.2.3",
-        "lint-staged": "^10.0.9",
+        "lint-staged": "^10.2.11",
         "nodemon": "^2.0.2",
         "prettier": "^2.0.2",
         "shx": "^0.3.2",
@@ -37,15 +37,17 @@
     },
     "lint-staged": {
         "*.ts": [
-            "npm run format",
             "npm run lint",
-            "npm run staged-test",
-            "git add"
+            "npm run format",
+            "npm run staged-test"
+        ],
+        "*.json": [
+            "npm run format"
         ]
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm test"
+            "pre-commit": "lint-staged"
         }
     }
 }
