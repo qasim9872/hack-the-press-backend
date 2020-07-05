@@ -1,4 +1,4 @@
-import { POST, GET, Path } from "typescript-rest"
+import { POST, GET, Path, ContextRequest } from "typescript-rest"
 import { User, UserModel } from "../../models/user.model"
 
 /**
@@ -21,7 +21,8 @@ export class UserController {
      * @return User<Array>
      */
     @GET
-    public async getAll(): Promise<User[]> {
+    public async getAll(@ContextRequest request: any): Promise<User[]> {
+        request.log.debug(`Fetching all users`)
         return UserModel.find()
     }
 }
