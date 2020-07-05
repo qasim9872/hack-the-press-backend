@@ -1,4 +1,3 @@
-import { createServer } from "http"
 import { DB_URI } from "./config/database.config"
 import { connectMongo, disconnectMongo } from "./setup/mongoose.setup"
 import { NODE_ENV, PORT } from "./config/app.config"
@@ -9,11 +8,11 @@ export async function initiateApp() {
     await connectMongo(DB_URI)
 
     const app = await createApp()
-    const server = createServer(app)
 
-    server.listen(PORT, () => {
-        logger.info(`API is running in ${NODE_ENV} mode and is available at ${PORT}`)
-    })
+    await app.listen(PORT)
+
+    app.blipp()
+    logger.info(`API is running in ${NODE_ENV} mode and is available at ${PORT}`)
 }
 
 initiateApp()

@@ -1,39 +1,45 @@
-import express from "express"
-import helmet from "helmet"
-import morgan from "morgan"
-import cors from "cors"
-import pinoExpress from "express-pino-logger"
-import { Server } from "typescript-rest"
+import fastify from "fastify"
+import helmet from "fastify-helmet"
+import blipp from "fastify-blipp"
+import boom from "fastify-boom"
+import health from "fastify-healthcheck"
+import { IncomingMessage, ServerResponse, Server } from "http"
 
 import logger from "./utils/logger"
 import { IS_PROD } from "./config/app.config"
-import { setupControllers } from "./controllers"
+// import { setupControllers } from "./controllers"
+import swagger from "./setup/swagger.setup"
+
+type FastifyApp = fastify.FastifyInstance<Server, IncomingMessage, ServerResponse>
 
 export async function createApp() {
-    const app = express()
+    const app: FastifyApp = fastify({ logger })
 
-    // middlewares
-    app.use(helmet())
-    app.use(cors())
-    app.use(
-        morgan("combined", {
-            stream: {
-                write: (log) => logger.info(log),
-            },
-            skip: (req) => ["healthcheck", "docs"].some((path) => req.originalUrl.includes(path)),
-        })
-    )
-    app.use(
-        pinoExpress({
-            logger,
-        })
-    )
+    // plugins
+    app.register(helmet)
+    app.register(blipp)
+    app.register(boom)
+    app.register(health)
+    // app.use(cors())
+    // app.use(
+    //     morgan("combined", {
+    //         stream: {
+    //             write: (log) => logger.info(log),
+    //         },
+    //         skip: (req) => ["healthcheck", "docs"].some((path) => req.originalUrl.includes(path)),
+    //     })
+    // )
+    // app.use(
+    //     pinoExpress({
+    //         logger,
+    //     })
+    // )
 
     // setup controllers
-    setupControllers(app)
+    // setupControllers(app)
 
     // Only publish docs if running in non-prod mode
-    !IS_PROD && Server.swagger(app, { endpoint: "docs", filePath: "./dist/swagger.json", schemes: ["http", "https"] })
+    !IS_PROD && app.register(swagger)
 
     return app
 }
