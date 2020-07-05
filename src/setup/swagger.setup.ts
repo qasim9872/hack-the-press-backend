@@ -25,16 +25,7 @@ export default fp(
                 },
                 consumes: ["application/json"],
                 produces: ["application/json"],
-                tags: [
-                    {
-                        name: "auth",
-                        description: "Authentication related endpoints",
-                    },
-                    {
-                        name: "api",
-                        description: "Data related endpoints",
-                    },
-                ],
+
                 securityDefinitions: {
                     apiKey: {
                         description: 'Standard Authorization header using the Bearer scheme. Example: "Bearer {token}"',

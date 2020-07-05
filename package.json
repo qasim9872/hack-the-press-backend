@@ -23,6 +23,7 @@
         "@types/config": "0.0.36",
         "@types/express-pino-logger": "^4.0.2",
         "@types/jest": "^25.1.4",
+        "@types/klaw": "^3.0.1",
         "@types/mongoose": "^5.7.29",
         "@types/node": "^14.0.14",
         "@types/pino": "^6.3.0",
@@ -68,6 +69,7 @@
         "fastify-helmet": "^3.0.2",
         "fastify-plugin": "^1.6.1",
         "fastify-swagger": "^2.6.0",
+        "klaw": "^3.0.0",
         "mongoose": "^5.9.21",
         "mongoose-timestamp": "^0.6.0",
         "pino": "^6.3.2"
