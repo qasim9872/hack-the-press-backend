@@ -3,6 +3,11 @@ import fp from "fastify-plugin"
 import { PluginOptions } from "fastify-plugin"
 import swagger from "fastify-swagger"
 import { IncomingMessage, Server, ServerResponse } from "http"
+import { join } from "path"
+
+const packagePath = join(process.cwd(), "package.json")
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { name: title, description, version } = require(packagePath)
 
 export default fp(
     (
@@ -14,10 +19,9 @@ export default fp(
             routePrefix: "/docs",
             swagger: {
                 info: {
-                    title: "iFunza API server",
-                    description:
-                        "Responds to paths prefixed with either `api` or `auth`, other requests will be forwarded to UI router.",
-                    version: "0.0.1",
+                    title,
+                    description,
+                    version,
                 },
                 externalDocs: {
                     url: "https://ifunza.oratech.co.ke",
