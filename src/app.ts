@@ -14,6 +14,10 @@ import { FastifyApp } from "./types"
 export async function createApp() {
     const app: FastifyApp = fastify({ logger })
 
+    // Only publish docs if running in non-prod mode
+    // Ensure swagger is registered before the routes are set up
+    !IS_PROD && app.register(swagger)
+
     // plugins
     app.register(helmet)
     app.register(blipp)
@@ -24,11 +28,7 @@ export async function createApp() {
     // setup routes
     app.register(routeLoader, {
         directory: resolve(__dirname, `routes`),
-        // match: /\.(route)\./,
     })
-
-    // Only publish docs if running in non-prod mode
-    !IS_PROD && app.register(swagger)
 
     return app
 }

@@ -1,6 +1,9 @@
+const PORT = 5000
+
 export default {
     APP: {
-        PORT: 5000,
+        HOST: `localhost:${PORT}`,
+        PORT,
         LOG_LEVEL: "debug",
         NAME: "testing-startup-poc",
     },
