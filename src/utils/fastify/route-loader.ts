@@ -7,7 +7,6 @@ import { FastifyApp } from "../../types"
 
 type MATCH = string | string[]
 export const MATCH = [".route.ts", ".route.js"]
-
 const ALLOWED_KEYS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD", "CONNECT", "TRACE"]
 
 export interface RouteLoaderOptions {
@@ -18,25 +17,23 @@ export interface RouteLoaderOptions {
 
     /**
      * match used to filter files to load
-     * @default '.route.'
+     * @default [".route.ts", ".route.js"]
      */
     match?: MATCH
-}
 
-// function addModuleMethod(module: any, method: HTTPMethod, app: FastifyApp, fileRouteServerPath: string) {
-// const handler = module[method.toUpperCase()] as fastify.NowRequestHandler
-// if (handler) {
-//     app.log.debug(`${method.toUpperCase()} ${fileRouteServerPath}`)
-//     app[method](fileRouteServerPath, handler.opts || {}, handler)
-// }
-// }
+    /**
+     * will remove the matched path from the final url
+     * @default true
+     */
+    removeMatchedPath?: boolean
+}
 
 function checkMatch(path: string, match: MATCH) {
     const matchArray: string[] = typeof match === "string" ? [match] : match
 
     for (const matchItem of matchArray) {
         if (path.includes(matchItem)) {
-            return true
+            return matchItem
         }
     }
 
@@ -53,10 +50,10 @@ function processModule(app: any, routeModule: any, path: string) {
     }
 }
 
-async function loadRoutes(app: FastifyApp, base: string, match: MATCH) {
+async function loadRoutes(app: FastifyApp, base: string, match: MATCH, removeMatchedPath: boolean) {
     for await (const { path: filePath } of klaw(base)) {
         // remove the base path
-        const path = filePath.replace(base, "")
+        let path = filePath.replace(base, "")
 
         // klaw also returns the root folder so we need to ignore it
         if (path === "") {
@@ -64,9 +61,14 @@ async function loadRoutes(app: FastifyApp, base: string, match: MATCH) {
         }
 
         // if the path is not matched, we should ignore the file
-        if (!checkMatch(path, match)) {
+        const matchedPath = checkMatch(path, match)
+        if (!matchedPath) {
             logger.warn(`ignoring file: ${path}`)
             continue
+        }
+
+        if (removeMatchedPath) {
+            path = path.replace(matchedPath, "")
         }
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -80,10 +82,10 @@ export default fp(async (app: FastifyApp, opts: RouteLoaderOptions, done: (err?:
         return
     }
 
-    const { directory, match } = opts
+    const { directory, match, removeMatchedPath } = opts
     logger.debug(`loading routes from ${directory}`)
 
-    await loadRoutes(app, directory, match || MATCH)
+    await loadRoutes(app, directory, match || MATCH, removeMatchedPath || true)
 
     done()
 })
