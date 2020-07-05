@@ -60,8 +60,8 @@ async function loadRoutes(app: FastifyApp, base: string, match: MATCH, removeMat
             continue
         }
 
-        // if the path is not matched, we should ignore the file
         const matchedPath = checkMatch(path, match)
+        // if the path is not matched, we should ignore the file
         if (!matchedPath) {
             logger.warn(`ignoring file: ${path}`)
             continue
@@ -69,6 +69,11 @@ async function loadRoutes(app: FastifyApp, base: string, match: MATCH, removeMat
 
         if (removeMatchedPath) {
             path = path.replace(matchedPath, "")
+        }
+
+        // if the path ends in index, then replace index with empty space
+        if (path.endsWith("index")) {
+            path = path.replace(/\/?index$/, "")
         }
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
