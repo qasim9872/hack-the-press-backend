@@ -1,7 +1,8 @@
 import fastify from "fastify"
 import { UserModel } from "../../models/user.model"
+import { UserSchema } from "../../schemas"
 
-export const GET: fastify.DynamicRouteHandler = async (request, reply) => {
+export const GET: fastify.DynamicRouteHandler = async (request) => {
     const users = await UserModel.find()
     request.log.debug(`Fetching all users`)
 
@@ -10,8 +11,22 @@ export const GET: fastify.DynamicRouteHandler = async (request, reply) => {
 
 GET.opts = {
     schema: {
-        description: "Description of this get route.",
-        tags: ["api"],
-        summary: "Get request",
+        description: "Get all users",
+        tags: ["users"],
+        summary: "Get all users request",
+    },
+}
+
+export const POST: fastify.DynamicRouteHandler = async (request) => {
+    const userData = request.body
+    return (await UserModel.create(userData)).toObject()
+}
+
+POST.opts = {
+    schema: {
+        description: "Create a new user",
+        tags: ["users"],
+        summary: "Create a new user",
+        body: UserSchema,
     },
 }

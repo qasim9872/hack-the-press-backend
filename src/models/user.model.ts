@@ -1,12 +1,10 @@
 import timestamps from "mongoose-timestamp"
 import { plugin, prop, getModelForClass } from "@typegoose/typegoose"
 
-export interface User {
-    name: string
-}
+import { UserInterface } from "../interfaces/user.interface"
 
 @plugin(timestamps)
-export class User implements User {
+export class User implements UserInterface {
     @prop({ required: true })
     public name!: string
 }
