@@ -7,6 +7,7 @@ import { Server } from "typescript-rest"
 
 import logger from "./utils/logger"
 import { IS_PROD } from "./config/app.config"
+import { setupControllers } from "./controllers"
 
 export async function createApp() {
     const app = express()
@@ -28,8 +29,8 @@ export async function createApp() {
         })
     )
 
-    // load controllers
-    Server.loadServices(app, "controllers/*", __dirname)
+    // setup controllers
+    setupControllers(app)
 
     // Only publish docs if running in non-prod mode
     !IS_PROD && Server.swagger(app, { endpoint: "docs", filePath: "./dist/swagger.json", schemes: ["http", "https"] })

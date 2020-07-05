@@ -1,5 +1,5 @@
 import { POST, GET, Path } from "typescript-rest"
-import { User, UserModel } from "../models/user.model"
+import { User, UserModel } from "../../models/user.model"
 
 /**
  * The health check endpoint is for validating that the service is reachable

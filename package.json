@@ -16,7 +16,7 @@
         "format": "npm run pretty-base --write",
         "lint": "eslint --fix 'src/**/*.{ts,tsx}'",
         "swagger": "swaggerGen -c ./swagger.config.yml",
-        "watch:swagger": "onchange -i './src/controllers/*.ts' -- npm run swagger"
+        "watch:swagger": "onchange -i './src/controllers/**/*.ts' -- npm run swagger"
     },
     "author": "Muhammad Qasim <qasim9872@gmail.com>",
     "license": "MIT",
