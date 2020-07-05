@@ -28,8 +28,8 @@ export async function createApp() {
         })
     )
 
-    // load routes
-    Server.loadServices(app, "routes/*", __dirname)
+    // load controllers
+    Server.loadServices(app, "controllers/*", __dirname)
 
     // Only publish docs if running in non-prod mode
     !IS_PROD && Server.swagger(app, { endpoint: "docs", filePath: "./dist/swagger.json", schemes: ["http", "https"] })

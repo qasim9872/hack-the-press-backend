@@ -16,7 +16,7 @@
         "format": "npm run pretty-base --write",
         "lint": "eslint --fix 'src/**/*.{ts,tsx}'",
         "swagger": "swaggerGen -c ./swagger.config.yml",
-        "watch:swagger": "onchange -i './src/routes/*.ts' -- npm run swagger"
+        "watch:swagger": "onchange -i './src/controllers/*.ts' -- npm run swagger"
     },
     "author": "Muhammad Qasim <qasim9872@gmail.com>",
     "license": "MIT",
@@ -73,6 +73,7 @@
         "express-pino-logger": "^5.0.0",
         "helmet": "^3.23.3",
         "mongoose": "^5.9.21",
+        "mongoose-timestamp": "^0.6.0",
         "morgan": "^1.10.0",
         "pino": "^6.3.2",
         "typescript-rest": "^3.0.1"

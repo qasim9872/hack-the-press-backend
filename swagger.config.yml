@@ -1,7 +1,7 @@
 swagger:
     outputDirectory: ./dist
     entryFile:
-        - ./src/routes/*
+        - ./src/controllers/*
     outputFormat: OpenApi_3
     name: Testing POC
     description: A Proof of concept for Testing app
