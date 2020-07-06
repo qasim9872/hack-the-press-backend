@@ -14,6 +14,9 @@ GET.opts = {
         description: "Get all users",
         tags: ["users"],
         summary: "Get all users request",
+        response: {
+            200: { type: "array", items: UserSchema },
+        },
     },
 }
 
