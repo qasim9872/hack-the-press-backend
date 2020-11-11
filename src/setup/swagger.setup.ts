@@ -5,7 +5,7 @@ import swagger from "fastify-swagger"
 import { IncomingMessage, Server, ServerResponse } from "http"
 import { join } from "path"
 
-import { HOST } from "../config/app.config"
+import { HOST } from "@config/app.config"
 
 const packagePath = join(process.cwd(), "package.json")
 // eslint-disable-next-line @typescript-eslint/no-var-requires

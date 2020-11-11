@@ -8,7 +8,7 @@ import autoLoad from "fastify-autoload"
 import { join } from "path"
 
 import logger from "./utils/logger"
-import { IS_PROD } from "./config/app.config"
+import { IS_PROD } from "@config/app.config"
 import swagger from "./setup/swagger.setup"
 import { FastifyApp } from "./types"
 
