@@ -1,5 +1,7 @@
-export function getRouteFromFileName(file: string, base: string) {
-    let path = file.replace(base, "")
+import { basename } from "path"
+
+export function getRouteFromFileName(file: string) {
+    let path = basename(file)
 
     // remove extension if present
     if (/.[t|j]s$/.test(path)) {
@@ -11,5 +13,5 @@ export function getRouteFromFileName(file: string, base: string) {
         path = path.slice(0, -5)
     }
 
-    return path || "/"
+    return path ? `/${path}` : "/"
 }

@@ -5,7 +5,7 @@ import { getRouteFromFileName } from "@utils/helpers"
 
 const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
     const ROUTE = getRouteFromFileName(__filename)
-    app.get(ROUTE, async () => {
+    app.post(ROUTE, async () => {
         return { hello: "world" }
     })
 }

@@ -12,16 +12,13 @@ import { join } from "path"
 import logger from "./utils/logger"
 import { IS_PROD } from "@config/app.config"
 import swagger from "./setup/swagger.setup"
-import { FastifyApp } from "./types"
 
 export async function createApp() {
-    const app: FastifyApp = fastify({ logger })
+    const app = fastify({ logger })
 
     // Only publish docs if running in non-prod mode
     // Ensure swagger is registered before the routes are set up
     !IS_PROD && app.register(swagger)
-
-    const ROUTES = join(__dirname, "routes")
 
     // plugins
     await app.register(middie)
@@ -31,10 +28,7 @@ export async function createApp() {
     app.register(health)
     app.register(formbody)
     app.register(autoLoad, {
-        dir: ROUTES,
-        options: {
-            dir: ROUTES,
-        },
+        dir: join(__dirname, "routes"),
     })
     // app.use(cors())
 
