@@ -16,4 +16,8 @@ export default {
             PASSWORD: "",
         },
     },
+    TWILIO: {
+        ACCOUNT_SID: "account-sid",
+        AUTH_TOKEN: "auth-token",
+    },
 }
