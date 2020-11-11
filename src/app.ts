@@ -3,7 +3,9 @@ import helmet from "fastify-helmet"
 import blipp from "fastify-blipp"
 import boom from "fastify-boom"
 import health from "fastify-healthcheck"
-import loader from "fastify-loader"
+import autoLoad from "fastify-autoload"
+
+import { join } from "path"
 
 import logger from "./utils/logger"
 import { IS_PROD } from "./config/app.config"
@@ -22,9 +24,8 @@ export async function createApp() {
     app.register(blipp)
     app.register(boom)
     app.register(health)
-    app.register(loader, {
-        paths: ["./routes/**/*.ts", "./routes/**/*.js"], // A glob array
-        name: "MyFastifyApp",
+    app.register(autoLoad, {
+        dir: join(__dirname, "routes"),
     })
     // app.use(cors())
 
