@@ -4,6 +4,8 @@ import blipp from "fastify-blipp"
 import boom from "fastify-boom"
 import health from "fastify-healthcheck"
 import autoLoad from "fastify-autoload"
+import middie from "middie"
+import formbody from "fastify-formbody"
 
 import { join } from "path"
 
@@ -22,10 +24,12 @@ export async function createApp() {
     const ROUTES = join(__dirname, "routes")
 
     // plugins
+    await app.register(middie)
     app.register(helmet)
     app.register(blipp)
     app.register(boom)
     app.register(health)
+    app.register(formbody)
     app.register(autoLoad, {
         dir: ROUTES,
         options: {
