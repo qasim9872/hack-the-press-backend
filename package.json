@@ -68,6 +68,7 @@
         "fastify-boom": "^0.1.0",
         "fastify-healthcheck": "^2.3.1",
         "fastify-helmet": "^3.0.2",
+        "fastify-loader": "^2.4.0",
         "fastify-plugin": "^1.6.1",
         "fastify-swagger": "^2.6.0",
         "klaw": "^3.0.0",
