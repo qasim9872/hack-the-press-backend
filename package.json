@@ -5,7 +5,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "start": "node -r tsconfig-paths/register",
+        "start": "node -r tsconfig-paths/register -r dotenv/config",
         "build": "tsc",
         "build:watch:": "tsc --watch",
         "build:clean": "shx rm -rf dist/ coverage/ && npm run build",
@@ -65,6 +65,7 @@
         "@typegoose/typegoose": "^7.2.0",
         "boom": "^7.3.0",
         "config": "^3.3.1",
+        "dotenv": "^8.2.0",
         "fastify": "^2.15.1",
         "fastify-autoload": "^3.3.1",
         "fastify-blipp": "^2.3.1",
