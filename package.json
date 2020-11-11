@@ -5,8 +5,10 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
+        "start": "node -r tsconfig-paths/register",
         "build": "tsc",
-        "watch:build": "tsc --watch",
+        "build:watch:": "tsc --watch",
+        "build:clean": "shx rm -rf dist/ coverage/ && npm run build",
         "dev": "nodemon",
         "test": "jest",
         "staged-test": "npm run test -- --passWithNoTests --bail --findRelatedTests",
@@ -74,6 +76,7 @@
         "klaw": "^3.0.0",
         "mongoose": "^5.9.21",
         "mongoose-timestamp": "^0.6.0",
-        "pino": "^6.3.2"
+        "pino": "^6.3.2",
+        "tsconfig-paths": "^3.9.0"
     }
 }

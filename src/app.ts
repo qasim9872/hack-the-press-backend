@@ -19,13 +19,18 @@ export async function createApp() {
     // Ensure swagger is registered before the routes are set up
     !IS_PROD && app.register(swagger)
 
+    const ROUTES = join(__dirname, "routes")
+
     // plugins
     app.register(helmet)
     app.register(blipp)
     app.register(boom)
     app.register(health)
     app.register(autoLoad, {
-        dir: join(__dirname, "routes"),
+        dir: ROUTES,
+        options: {
+            dir: ROUTES,
+        },
     })
     // app.use(cors())
 
