@@ -5,12 +5,12 @@ export default {
         HOST: `localhost:${PORT}`,
         PORT,
         LOG_LEVEL: "debug",
-        NAME: "testing-startup-poc",
+        NAME: "twilio-voice",
     },
     DB: {
         HOST: "localhost",
         PORT: "27017",
-        NAME: "POC",
+        NAME: "twilio",
         CREDS: {
             USERNAME: "",
             PASSWORD: "",

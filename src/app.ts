@@ -3,9 +3,7 @@ import helmet from "fastify-helmet"
 import blipp from "fastify-blipp"
 import boom from "fastify-boom"
 import health from "fastify-healthcheck"
-import { resolve } from "path"
 
-import routeLoader from "./utils/fastify/route-loader"
 import logger from "./utils/logger"
 import { IS_PROD } from "./config/app.config"
 import swagger from "./setup/swagger.setup"
@@ -24,11 +22,6 @@ export async function createApp() {
     app.register(boom)
     app.register(health)
     // app.use(cors())
-
-    // setup routes
-    app.register(routeLoader, {
-        directory: resolve(__dirname, `routes`),
-    })
 
     return app
 }
