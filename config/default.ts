@@ -19,5 +19,20 @@ export default {
     TWILIO: {
         ACCOUNT_SID: "account-sid",
         AUTH_TOKEN: "auth-token",
+        TTS: {
+            VOICE: "Polly.Amy",
+            LANGUAGE: "en-GB",
+        },
+        STT: {
+            LANGUAGE: "en-GB",
+        },
+    },
+    NLP: {
+        CONFIDENCE_THRESHOLD: 0.6,
+        WATSON: {
+            API_KEY: "api-key",
+            URL: "url",
+            ASSISTANT_ID: "assistant-id",
+        },
     },
 }

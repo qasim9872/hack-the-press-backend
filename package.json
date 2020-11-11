@@ -35,6 +35,7 @@
         "fastify-helmet": "^3.0.2",
         "fastify-plugin": "^1.6.1",
         "fastify-swagger": "^2.6.0",
+        "ibm-watson": "^5.7.1",
         "klaw": "^3.0.0",
         "middie": "^5.2.0",
         "mongoose": "^5.10.13",

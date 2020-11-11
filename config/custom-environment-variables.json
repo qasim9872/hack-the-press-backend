@@ -14,5 +14,12 @@
     "TWILIO": {
         "ACCOUNT_SID": "TWILIO_ACCOUNT_SID",
         "AUTH_TOKEN": "TWILIO_AUTH_TOKEN"
+    },
+    "NLP": {
+        "WATSON": {
+            "API_KEY": "WATSON_API_KEY",
+            "URL": "WATSON_URL",
+            "ASSISTANT_ID": "WATSON_ASSISTANT_ID"
+        }
     }
 }

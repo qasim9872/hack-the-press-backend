@@ -1,7 +1,7 @@
 import { DB_URI } from "@config/database.config"
 import { connectMongo, disconnectMongo } from "./setup/mongoose.setup"
 import { NODE_ENV, PORT, IS_PROD } from "@config/app.config"
-import logger from "./utils/logger/index"
+import logger from "@utils/logger"
 import { createApp } from "./app"
 ;(async function initiateApp() {
     await connectMongo(DB_URI)
