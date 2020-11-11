@@ -1,5 +1,18 @@
 {
     "APP": {
         "PORT": "PORT"
+    },
+    "DB": {
+        "HOST": "DB_HOST",
+        "PORT": "DB_PORT",
+        "NAME": "DB_NAME",
+        "CREDS": {
+            "USERNAME": "DB_USERNAME",
+            "PASSWORD": "DB_PASSWORD"
+        }
+    },
+    "TWILIO": {
+        "ACCOUNT_SID": "TWILIO_ACCOUNT_SID",
+        "AUTH_TOKEN": "TWILIO_AUTH_TOKEN"
     }
 }
