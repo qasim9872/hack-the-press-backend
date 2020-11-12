@@ -20,8 +20,9 @@ export async function createApp() {
     // Ensure swagger is registered before the routes are set up
     !IS_PROD && app.register(swagger)
 
-    // plugins
     await app.register(middie)
+
+    // plugins
     app.register(helmet)
     app.register(blipp)
     app.register(boom)

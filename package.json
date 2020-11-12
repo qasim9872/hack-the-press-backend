@@ -10,6 +10,7 @@
         "build:watch:": "tsc --watch",
         "build:clean": "shx rm -rf dist/ coverage/ && npm run build",
         "dev": "nodemon",
+        "debug": "npm run dev -- --inspect=5858",
         "test": "jest",
         "staged-test": "npm run test -- --passWithNoTests --bail --findRelatedTests",
         "precommit": "npm run test",
@@ -23,6 +24,7 @@
     "license": "MIT",
     "keywords": [],
     "dependencies": {
+        "@sinclair/typebox": "^0.12.4",
         "boom": "^7.3.0",
         "config": "^3.3.2",
         "dotenv": "^8.2.0",
