@@ -16,6 +16,11 @@ export const BodySchema = Type.Object({
     FromCountry: Type.Optional(Type.String()),
     To: Type.String(),
     ToCountry: Type.Optional(Type.String()),
+
+    // input values
+    Digits: Type.Optional(Type.String()),
+    SpeechResult: Type.Optional(Type.String()),
+    Confidence: Type.Optional(Type.Number()),
 })
 
 export type IBody = Static<typeof BodySchema>

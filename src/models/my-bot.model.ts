@@ -1,5 +1,5 @@
 import timestamps from "mongoose-timestamp"
-import { plugin, prop, getModelForClass } from "@typegoose/typegoose"
+import { plugin, prop, getModelForClass, ReturnModelType } from "@typegoose/typegoose"
 import { FaqInfo } from "./faq-info"
 
 export interface MyBot {
@@ -35,6 +35,9 @@ export class MyBot implements MyBot {
     public faqMap: FaqInfo[] = []
 
     // TODO - add utility functions
+    public static async findByPhoneNumber(this: ReturnModelType<typeof MyBot>, phoneNumber: string) {
+        return this.findOne({ phoneNumbers: phoneNumber }).exec()
+    }
 }
 
 export const MyBotModel = getModelForClass(MyBot)

@@ -1,8 +1,8 @@
 import { API_KEY, URL, ASSISTANT_ID, CONFIDENCE_THRESHOLD } from "@root/config/nlp.config"
 import AssistantV2 from "ibm-watson/assistant/v2"
 import { IamAuthenticator } from "ibm-watson/auth"
-import logger from "@utils/logger"
 import assert from "assert"
+import { FastifyLoggerInstance } from "fastify"
 
 const assistant = new AssistantV2({
     version: "2020-08-01",
@@ -12,7 +12,15 @@ const assistant = new AssistantV2({
     serviceUrl: URL,
 })
 
-export async function classify(text: string, assistantId = ASSISTANT_ID) {
+export function getNoMatchIntent() {
+    // no matched intent
+    return {
+        intent: "NO_MATCH",
+        confidence: 1,
+    }
+}
+
+export async function classify(logger: FastifyLoggerInstance, text: string, assistantId = ASSISTANT_ID) {
     const params = {
         assistantId,
         input: {
@@ -34,29 +42,27 @@ export async function classify(text: string, assistantId = ASSISTANT_ID) {
 
     const output = response?.result?.output
     const intents = output?.intents || []
-    const entities = output?.entities
+    const entities = output?.entities || []
 
-    const classified = intents && intents.length > 0
-    const top =
-        classified && // only lookup the first intent if intent has been classified
-        intents
-            .sort(({ confidence: a }, { confidence: b }) => {
-                if (a > b) return 1
-                if (b > a) return -1
+    const classified = (intents && intents.length > 0) || false
+    const top = classified // only lookup the first intent if intent has been classified
+        ? intents
+              .sort(({ confidence: a }, { confidence: b }) => {
+                  if (a > b) return 1
+                  if (b > a) return -1
 
-                return 0
-            })
-            .slice(0, 1) // slice to make a copy
-            .shift() // to remove the first elem
-    const valid = top && top.confidence > CONFIDENCE_THRESHOLD
+                  return 0
+              })
+              .slice(0, 1) // slice to make a copy
+              .shift() // to remove the first elem
+        : undefined
+    const valid = (top && top.confidence > CONFIDENCE_THRESHOLD) || false
 
     const result = {
-        top,
+        top: top && valid ? top : getNoMatchIntent(),
         text,
-        valid,
         intents,
         entities,
-        classified,
     }
 
     logger.info(result, `input text successfully classified`)
