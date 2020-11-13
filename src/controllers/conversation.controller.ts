@@ -17,7 +17,7 @@ export async function getResponse(logger: FastifyLoggerInstance, to: string, int
 
     logger.info(`found bot with id: ${bot.id} for phone number ${to}`)
 
-    const faq = bot.faqMap.find((faq) => faq.intent.includes(intent))
+    const faq = bot.findIntent(intent)
 
     if (!faq) {
         const message = `No match found for intent: ${intent}`

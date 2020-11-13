@@ -23,7 +23,7 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
         const digits = request.body.Digits
         const speech = request.body.SpeechResult
 
-        const input = speech || digits || "entry"
+        const input = speech || digits
 
         request.log.debug(
             {
@@ -35,7 +35,7 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
             `${direction} call: ${status}`
         )
 
-        if (input) {
+        if (!input) {
             request.log.info(`starting new chat`)
             return init(request.log, to)
         } else {
