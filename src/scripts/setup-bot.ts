@@ -6,6 +6,7 @@ import logger from "@utils/logger"
 const name = "my-voice-bot"
 const details = "my first voice bot"
 const phoneNumber = "+447453528748"
+const transfer = ""
 
 enum INTENTS {
     GENERAL_GREETINGS = "General_Greetings",
@@ -37,6 +38,15 @@ const map = {
     [INTENTS.GENERAL_SECURITY_ASSURANCE]: "try me",
 }
 
+const special: { [key: string]: any } = {
+    [INTENTS.GENERAL_CONNECT_TO_AGENT]: {
+        transfer,
+    },
+    [INTENTS.GENERAL_ENDING]: {
+        hangup: true,
+    },
+}
+
 ;(async function run() {
     await connectMongo(DB_URI)
 
@@ -51,7 +61,7 @@ const map = {
 
     for (const [intent, response] of Object.entries(map)) {
         logger.debug(`Adding intent: ${intent} => ${response}`)
-        await bot?.addResponse(intent, [response], true, true)
+        await bot?.addResponse(intent, [response], special[intent], true, true)
     }
 
     disconnectMongo()

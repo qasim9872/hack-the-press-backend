@@ -8,7 +8,7 @@ import {
     setGlobalOptions,
     Severity,
 } from "@typegoose/typegoose"
-import { FaqInfo } from "./faq-info"
+import { FaqInfo, TwimlConfig } from "./faq-info"
 import Boom from "boom"
 
 // This is to allow nested objects
@@ -74,6 +74,7 @@ export class MyBot implements MyBot {
         this: DocumentType<MyBot>,
         intent: string,
         response: string[],
+        config?: TwimlConfig,
         create = true,
         set = false
     ) {
@@ -90,6 +91,10 @@ export class MyBot implements MyBot {
             faq.response = response
         } else {
             faq.response.push(...response)
+        }
+
+        if (config) {
+            faq.config = config
         }
 
         this.markModified("faqMap")
