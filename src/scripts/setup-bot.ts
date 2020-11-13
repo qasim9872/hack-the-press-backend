@@ -1,4 +1,7 @@
+import { DB_URI } from "@config/database.config"
+import { connectMongo, disconnectMongo } from "@root/setup/mongoose.setup"
 import { MyBotModel } from "@root/models/my-bot.model"
+import logger from "@utils/logger"
 
 const name = "my-voice-bot"
 const details = "my first voice bot"
@@ -15,14 +18,39 @@ enum INTENTS {
     GENERAL_NEGATIVE_FEEDBACK = "General_Negative_Feedback",
     GENERAL_POSITIVE_FEEDBACK = "General_Positive_Feedback",
     GENERAL_SECURITY_ASSURANCE = "General_Security_Assurance",
+    NO_MATCH = "NO_MATCH",
+}
+
+const map = {
+    [INTENTS.NO_MATCH]: "I am sorry I couldn't find a response for your query, please try asking in a different way?",
+    [INTENTS.GENERAL_GREETINGS]: "hello, how can I help you today?",
+    [INTENTS.GENERAL_ENDING]: "Have a good day",
+    [INTENTS.GENERAL_ABOUT_YOU]: "I'm a bot",
+    [INTENTS.GENERAL_AGENT_CAPABILITIES]: "anything you ask",
+    [INTENTS.GENERAL_CONNECT_TO_AGENT]: "Mein hon toh kya gham hai",
+    [INTENTS.GENERAL_HUMAN_OR_BOT]: "however you like",
+    [INTENTS.GENERAL_JOKES]: "two minutes",
+    [INTENTS.GENERAL_NEGATIVE_FEEDBACK]: "keep going",
+    [INTENTS.GENERAL_POSITIVE_FEEDBACK]: "I'm lovin it",
+    [INTENTS.GENERAL_SECURITY_ASSURANCE]: "try me",
 }
 
 ;(async function run() {
+    await connectMongo(DB_URI)
+
     let bot = await MyBotModel.findByPhoneNumber(phoneNumber)
 
     if (!bot) {
+        logger.info(`creating bot. Bot with phone number: ${phoneNumber} doesn't exist`)
         bot = await MyBotModel.create({ name, details, phoneNumbers: [phoneNumber], faqMap: [] })
     }
 
-    // await bot?.addResponse(INTENTS.GENERAL_GREETINGS, ["Welcome, how are you doing today?"])
+    logger.info(`bot with phone number: ${phoneNumber} has id: ${bot.id}`)
+
+    for (const [intent, response] of Object.entries(map)) {
+        logger.debug(`Adding intent: ${intent} => ${response}`)
+        await bot?.addResponse(intent, [response], true, true)
+    }
+
+    disconnectMongo()
 })()
