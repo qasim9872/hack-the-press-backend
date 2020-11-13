@@ -27,7 +27,11 @@ export async function getResponse(logger: FastifyLoggerInstance, to: string, int
         })
     }
 
-    return sayText(faq.response.join(``))
+    // create response
+    const { response, config } = faq
+    const hangup = config?.hangup || false
+
+    return sayText(response.join(""), hangup)
 }
 
 export async function init(logger: FastifyLoggerInstance, to: string) {

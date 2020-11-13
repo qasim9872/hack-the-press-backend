@@ -47,7 +47,6 @@ export class MyBot implements MyBot {
     @prop({ required: true })
     public faqMap: FaqInfo[] = []
 
-    // TODO - add utility functions
     public static async findByPhoneNumber(this: ReturnModelType<typeof MyBot>, phoneNumber: string) {
         return this.findOne({ phoneNumbers: phoneNumber }).exec()
     }
