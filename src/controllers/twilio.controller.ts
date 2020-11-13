@@ -14,6 +14,9 @@ export function sayText(text: string, attributes = TTS_ATTRIBUTES) {
         language: STT_LANGUAGE,
         speechModel: "phone_call",
         enhanced: true,
+        // timeout: 2, // the callback will be triggered after silence for this amount of time
+        speechTimeout: "auto",
+        actionOnEmptyResult: true, // this ensures we receive a response even when the user didn't say anything
     })
 
     gather.say(attributes, text)

@@ -19,11 +19,13 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
         const direction = request.body.Direction
         const status = request.body.CallStatus
 
+        const isOngoing = status === "in-progress"
+
         // user input if provided
         const digits = request.body.Digits
         const speech = request.body.SpeechResult
 
-        const input = speech || digits
+        const input = speech || digits || ""
 
         request.log.debug(
             {
@@ -35,7 +37,7 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
             `${direction} call: ${status}`
         )
 
-        if (!input) {
+        if (!isOngoing) {
             request.log.info(`starting new chat`)
             return init(request.log, to)
         } else {

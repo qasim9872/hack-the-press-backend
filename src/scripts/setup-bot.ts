@@ -19,9 +19,11 @@ enum INTENTS {
     GENERAL_POSITIVE_FEEDBACK = "General_Positive_Feedback",
     GENERAL_SECURITY_ASSURANCE = "General_Security_Assurance",
     NO_MATCH = "NO_MATCH",
+    NO_INPUT = "NO_INPUT",
 }
 
 const map = {
+    [INTENTS.NO_INPUT]: "I didn't hear you say anything, can you try saying it again?",
     [INTENTS.NO_MATCH]: "I am sorry I couldn't find a response for your query, please try asking in a different way?",
     [INTENTS.GENERAL_GREETINGS]: "hello, how can I help you today?",
     [INTENTS.GENERAL_ENDING]: "Have a good day",

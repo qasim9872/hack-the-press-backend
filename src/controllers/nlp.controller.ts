@@ -12,15 +12,24 @@ const assistant = new AssistantV2({
     serviceUrl: URL,
 })
 
-export function getNoMatchIntent() {
+export function getMockIntent(intent: string) {
     // no matched intent
     return {
-        intent: "NO_MATCH",
+        intent,
         confidence: 1,
     }
 }
 
 export async function classify(logger: FastifyLoggerInstance, text: string, assistantId = ASSISTANT_ID) {
+    if (!text) {
+        return {
+            text,
+            intents: [],
+            entities: [],
+            top: getMockIntent("NO_INPUT"),
+        }
+    }
+
     const params = {
         assistantId,
         input: {
@@ -59,7 +68,7 @@ export async function classify(logger: FastifyLoggerInstance, text: string, assi
     const valid = (top && top.confidence > CONFIDENCE_THRESHOLD) || false
 
     const result = {
-        top: top && valid ? top : getNoMatchIntent(),
+        top: top && valid ? top : getMockIntent("NO_MATCH"),
         text,
         intents,
         entities,
