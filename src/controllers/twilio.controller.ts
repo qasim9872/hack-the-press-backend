@@ -47,6 +47,7 @@ export function createResponse(logger: FastifyLoggerInstance, intentAnswerPair: 
         }
 
         logger.info(`transferring call to: ${transferTarget}`)
+        // TODO - look into doing warm transfers
         voiceResponse.dial(transferTarget)
         ending = true
     }

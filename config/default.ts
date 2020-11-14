@@ -8,12 +8,13 @@ export default {
         NAME: "twilio-voice",
     },
     DB: {
-        HOST: "localhost",
+        // mongodb+srv://api-user:<password>@cluster0.cwspa.mongodb.net/<dbname>?retryWrites=true&w=majority
+        HOST: "cluster0.cwspa.mongodb.net",
         PORT: "27017",
         NAME: "twilio",
         CREDS: {
-            USERNAME: "",
-            PASSWORD: "",
+            USERNAME: "api-user",
+            PASSWORD: "g3o3dAbSV1H2dTY0",
         },
     },
     TWILIO: {
