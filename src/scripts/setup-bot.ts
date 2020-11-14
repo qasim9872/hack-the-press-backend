@@ -6,7 +6,7 @@ import logger from "@utils/logger"
 const name = "my-voice-bot"
 const details = "my first voice bot"
 const phoneNumber = "+447453528748"
-const transfer = ""
+const transferTarget = "+447479481652"
 
 enum INTENTS {
     GENERAL_GREETINGS = "General_Greetings",
@@ -40,7 +40,10 @@ const map = {
 
 const special: { [key: string]: any } = {
     [INTENTS.GENERAL_CONNECT_TO_AGENT]: {
-        transfer,
+        transfer: true,
+        transferPreferences: {
+            transferTarget,
+        },
     },
     [INTENTS.GENERAL_ENDING]: {
         hangup: true,

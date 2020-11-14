@@ -27,22 +27,16 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
 
         const input = speech || digits || ""
 
-        request.log.debug(
-            {
-                to,
-                from,
-                callId,
-                input,
-            },
-            `${direction} call: ${status}`
-        )
+        const logger = request.log.child({ callId, from, to })
+
+        logger.debug(`${direction} call: ${status}`)
 
         if (!isOngoing) {
-            request.log.info(`starting new chat`)
-            return init(request.log, to)
+            logger.info(`starting new chat`)
+            return init(logger, to)
         } else {
-            request.log.info(`continuing chat: ${input}`)
-            return process(request.log, to, input)
+            logger.info(`continuing chat: ${input}`)
+            return process(logger, to, input)
         }
     })
 }

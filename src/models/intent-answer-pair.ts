@@ -1,7 +1,12 @@
 import { prop } from "@typegoose/typegoose"
 
+export interface TransferPreferences {
+    transferTarget?: string
+}
+
 export interface TwimlConfig {
-    transfer?: string
+    transfer?: boolean
+    transferPreferences?: TransferPreferences
     hangup?: boolean
 }
 

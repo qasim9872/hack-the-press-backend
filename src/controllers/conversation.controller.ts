@@ -1,6 +1,6 @@
 import { classify } from "./nlp.controller"
 import { MyBotModel } from "../models/my-bot.model"
-import { sayText } from "./twilio.controller"
+import { createResponse } from "./twilio.controller"
 import { FastifyLoggerInstance } from "fastify"
 import Boom from "boom"
 
@@ -28,11 +28,7 @@ export async function getResponse(logger: FastifyLoggerInstance, to: string, int
     }
 
     // create response
-    const { response, config } = intentAnswerPair
-    const hangup = config?.hangup || false
-    // const transfer = config?.transfer || false
-
-    return sayText(response.join(""), hangup)
+    return createResponse(logger, intentAnswerPair)
 }
 
 export async function init(logger: FastifyLoggerInstance, to: string) {
