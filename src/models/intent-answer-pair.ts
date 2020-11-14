@@ -5,13 +5,13 @@ export interface TwimlConfig {
     hangup?: boolean
 }
 
-export interface FaqInfo {
+export interface IntentAnswerPair {
     intent: string
     response: string[]
     config?: TwimlConfig
 }
 
-export class FaqInfo implements FaqInfo {
+export class IntentAnswerPair implements IntentAnswerPair {
     @prop({ required: true, default: [] })
     public intent!: string
 

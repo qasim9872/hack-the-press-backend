@@ -1,12 +1,16 @@
 import { ACCOUNT_SID, AUTH_TOKEN, TTS_ATTRIBUTES, STT_LANGUAGE } from "@config/twilio.config"
+import { IntentAnswerPair } from "@root/models/intent-answer-pair"
 import twilio from "twilio"
 
 const VoiceResponse = twilio.twiml.VoiceResponse
 export const client = twilio(ACCOUNT_SID, AUTH_TOKEN)
 
+// export function createResponse(intentAnswerPair: IntentAnswerPair) {}
+
 export function sayText(text: string, hangup: boolean, attributes = TTS_ATTRIBUTES) {
     const response = new VoiceResponse()
 
+    // add the text response
     response.say(attributes, text)
 
     if (hangup) {
@@ -14,7 +18,6 @@ export function sayText(text: string, hangup: boolean, attributes = TTS_ATTRIBUT
     } else {
         response.gather({
             // hints
-            // action: "/speech",
             input: ["dtmf", "speech"],
             language: STT_LANGUAGE,
             speechModel: "phone_call",

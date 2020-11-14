@@ -54,7 +54,7 @@ const special: { [key: string]: any } = {
 
     if (!bot) {
         logger.info(`creating bot. Bot with phone number: ${phoneNumber} doesn't exist`)
-        bot = await MyBotModel.create({ name, details, phoneNumbers: [phoneNumber], faqMap: [] })
+        bot = await MyBotModel.create({ name, details, phoneNumbers: [phoneNumber], intentAnswerPairs: [] })
     }
 
     logger.info(`bot with phone number: ${phoneNumber} has id: ${bot.id}`)

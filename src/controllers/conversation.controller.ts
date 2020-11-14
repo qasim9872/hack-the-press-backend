@@ -17,9 +17,9 @@ export async function getResponse(logger: FastifyLoggerInstance, to: string, int
 
     logger.info(`found bot with id: ${bot.id} for phone number ${to}`)
 
-    const faq = bot.findIntent(intent)
+    const intentAnswerPair = bot.findIntent(intent)
 
-    if (!faq) {
+    if (!intentAnswerPair) {
         const message = `No match found for intent: ${intent}`
         throw new Boom(message, {
             statusCode: 400,
@@ -28,8 +28,9 @@ export async function getResponse(logger: FastifyLoggerInstance, to: string, int
     }
 
     // create response
-    const { response, config } = faq
+    const { response, config } = intentAnswerPair
     const hangup = config?.hangup || false
+    // const transfer = config?.transfer || false
 
     return sayText(response.join(""), hangup)
 }

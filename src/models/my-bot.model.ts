@@ -8,7 +8,7 @@ import {
     setGlobalOptions,
     Severity,
 } from "@typegoose/typegoose"
-import { FaqInfo, TwimlConfig } from "./faq-info"
+import { IntentAnswerPair, TwimlConfig } from "./intent-answer-pair"
 import Boom from "boom"
 
 // This is to allow nested objects
@@ -18,7 +18,7 @@ export interface MyBot {
     name: string
     details: string
     phoneNumbers: string[]
-    faqMap: FaqInfo[]
+    intentAnswerPairs: IntentAnswerPair[]
 }
 
 @plugin(timestamps)
@@ -45,14 +45,14 @@ export class MyBot implements MyBot {
     public phoneNumbers: string[] = []
 
     @prop({ required: true })
-    public faqMap: FaqInfo[] = []
+    public intentAnswerPairs: IntentAnswerPair[] = []
 
     public static async findByPhoneNumber(this: ReturnModelType<typeof MyBot>, phoneNumber: string) {
         return this.findOne({ phoneNumbers: phoneNumber }).exec()
     }
 
     public findIntent(this: DocumentType<MyBot>, intent: string) {
-        return this.faqMap.find((faq) => faq.intent === intent)
+        return this.intentAnswerPairs.find((intentAnswerPair) => intentAnswerPair.intent === intent)
     }
 
     public async addIntent(this: DocumentType<MyBot>, intent: string) {
@@ -60,12 +60,12 @@ export class MyBot implements MyBot {
             throw new Boom(`intent: ${intent} already exists`)
         }
 
-        const faq: FaqInfo = {
+        const intentAnswerPair: IntentAnswerPair = {
             intent: intent,
             response: [],
         }
 
-        this.faqMap.push(faq)
+        this.intentAnswerPairs.push(intentAnswerPair)
         return this.save()
     }
 
@@ -81,22 +81,22 @@ export class MyBot implements MyBot {
             await this.addIntent(intent)
         }
 
-        const faq = this.findIntent(intent)
-        if (!faq) {
-            throw new Boom(`FAQ not found for ${intent}`)
+        const intentAnswerPair = this.findIntent(intent)
+        if (!intentAnswerPair) {
+            throw new Boom(`intentAnswerPair not found for ${intent}`)
         }
 
         if (set) {
-            faq.response = response
+            intentAnswerPair.response = response
         } else {
-            faq.response.push(...response)
+            intentAnswerPair.response.push(...response)
         }
 
         if (config) {
-            faq.config = config
+            intentAnswerPair.config = config
         }
 
-        this.markModified("faqMap")
+        this.markModified("intentAnswerPairs")
 
         return this.save()
     }
