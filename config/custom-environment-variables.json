@@ -1,25 +1,41 @@
 {
-    "APP": {
-        "PORT": "PORT"
-    },
-    "DB": {
-        "HOST": "DB_HOST",
-        "PORT": "DB_PORT",
-        "NAME": "DB_NAME",
-        "CREDS": {
-            "USERNAME": "DB_USERNAME",
-            "PASSWORD": "DB_PASSWORD"
-        }
-    },
-    "TWILIO": {
-        "ACCOUNT_SID": "TWILIO_ACCOUNT_SID",
-        "AUTH_TOKEN": "TWILIO_AUTH_TOKEN"
-    },
-    "NLP": {
-        "WATSON": {
-            "API_KEY": "WATSON_API_KEY",
-            "URL": "WATSON_URL",
-            "ASSISTANT_ID": "WATSON_ASSISTANT_ID"
-        }
+  "APP": {
+    "PORT": "PORT"
+  },
+  "DB": {
+    "HOST": "DB_HOST",
+    "PORT": "DB_PORT",
+    "NAME": "DB_NAME",
+    "CREDS": {
+      "USERNAME": "DB_USERNAME",
+      "PASSWORD": "DB_PASSWORD"
     }
+  },
+  "SLACK": {
+    "URL": "SLACK_URL",
+    "CHANNELS": {
+      "INFO": "SLACK_INFO_CHANNEL_ID",
+      "WARN": "SLACK_WARN_CHANNEL_ID",
+      "ERROR": "SLACK_ERROR_CHANNEL_ID"
+    },
+    "TOKEN": "SLACK_TOKEN"
+  },
+  "LOGGER": {
+    "CONSOLE_LOG": "ENABLE_CONSOLE_LOG",
+    "TRANSPORT": {
+      "BATCH_SIZE": "LOGGER_TRANSPORT_BATCH_SIZE",
+      "TIMEOUT": "LOGGER_TRANSPORT_TIMEOUT"
+    }
+  },
+  "TWILIO": {
+    "ACCOUNT_SID": "TWILIO_ACCOUNT_SID",
+    "AUTH_TOKEN": "TWILIO_AUTH_TOKEN"
+  },
+  "NLP": {
+    "WATSON": {
+      "API_KEY": "WATSON_API_KEY",
+      "URL": "WATSON_URL",
+      "ASSISTANT_ID": "WATSON_ASSISTANT_ID"
+    }
+  }
 }
