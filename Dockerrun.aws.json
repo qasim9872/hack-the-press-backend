@@ -1,4 +1,5 @@
 {
+    "AWSEBDockerrunVersion": "1",
     "Image": {
         "Name": "617857319222.dkr.ecr.us-east-1.amazonaws.com/myvoicebot-api:latest",
         "Update": "true"
