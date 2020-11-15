@@ -9,6 +9,6 @@ export const TTS_LANGUAGE: SayLanguage = config.get("TWILIO.TTS.LANGUAGE")
 export const STT_LANGUAGE: GatherLanguage = config.get("TWILIO.STT.LANGUAGE")
 
 export const TTS_ATTRIBUTES: SayAttributes = {
-    voice: TTS_VOICE,
-    language: TTS_LANGUAGE,
+  voice: TTS_VOICE,
+  language: TTS_LANGUAGE,
 }

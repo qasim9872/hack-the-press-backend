@@ -14,24 +14,24 @@ import { IS_PROD } from "@config/app.config"
 import swagger from "./setup/swagger.setup"
 
 export async function createApp() {
-    const app = fastify({ logger })
+  const app = fastify({ logger })
 
-    // Only publish docs if running in non-prod mode
-    // Ensure swagger is registered before the routes are set up
-    !IS_PROD && app.register(swagger)
+  // Only publish docs if running in non-prod mode
+  // Ensure swagger is registered before the routes are set up
+  !IS_PROD && app.register(swagger)
 
-    await app.register(middie)
+  await app.register(middie)
 
-    // plugins
-    app.register(helmet)
-    app.register(blipp)
-    app.register(boom)
-    app.register(health)
-    app.register(formbody)
-    app.register(autoLoad, {
-        dir: join(__dirname, "routes"),
-    })
-    // app.use(cors())
+  // plugins
+  app.register(helmet)
+  app.register(blipp)
+  app.register(boom)
+  app.register(health)
+  app.register(formbody)
+  app.register(autoLoad, {
+    dir: join(__dirname, "routes"),
+  })
+  // app.use(cors())
 
-    return app
+  return app
 }

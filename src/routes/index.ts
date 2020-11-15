@@ -4,10 +4,10 @@ import { AutoloadPluginOptions } from "fastify-autoload"
 import { getRouteFromFileName } from "@utils/helpers"
 
 const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
-    const ROUTE = getRouteFromFileName(__filename)
-    app.get(ROUTE, async () => {
-        return { hello: "world" }
-    })
+  const ROUTE = getRouteFromFileName(__filename)
+  app.get(ROUTE, async () => {
+    return { hello: "world" }
+  })
 }
 
 export default routePlugin

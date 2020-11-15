@@ -11,27 +11,27 @@ const packagePath = join(process.cwd(), "package.json")
 const { name: title, description, version } = require(packagePath)
 
 const swaggerPlugin: FastifyPluginCallback<PluginOptions> = (app, options, done) => {
-    app.register(swagger, {
-        routePrefix: "/docs",
-        swagger: {
-            info: {
-                title,
-                description,
-                version,
-            },
-            externalDocs: {
-                url: "https://swagger.io",
-                description: "Find more info here",
-            },
-            host: HOST,
-            schemes: ["http"],
-            consumes: ["application/json"],
-            produces: ["application/json"],
-        },
-        exposeRoute: true,
-    })
+  app.register(swagger, {
+    routePrefix: "/docs",
+    swagger: {
+      info: {
+        title,
+        description,
+        version,
+      },
+      externalDocs: {
+        url: "https://swagger.io",
+        description: "Find more info here",
+      },
+      host: HOST,
+      schemes: ["http"],
+      consumes: ["application/json"],
+      produces: ["application/json"],
+    },
+    exposeRoute: true,
+  })
 
-    done()
+  done()
 }
 
 export default fp(swaggerPlugin)
