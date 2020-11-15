@@ -16,6 +16,13 @@ import swagger from "./setup/swagger.setup"
 export async function createApp() {
   const app = fastify({ logger })
 
+  // disable logs for health check endpoint
+  app.addHook("onRoute", (opts: any) => {
+    if (opts.path === "/health") {
+      opts.logLevel = "silent"
+    }
+  })
+
   // Only publish docs if running in non-prod mode
   // Ensure swagger is registered before the routes are set up
   !IS_PROD && app.register(swagger)
@@ -26,12 +33,13 @@ export async function createApp() {
   app.register(helmet)
   !IS_PROD && app.register(blipp)
   app.register(boom)
-  app.register(health)
+  app.register(health, {
+    exposeUptime: true,
+  })
   app.register(formbody)
   app.register(autoLoad, {
     dir: join(__dirname, "routes"),
   })
-  // app.use(cors())
 
   return app
 }
