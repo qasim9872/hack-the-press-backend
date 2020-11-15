@@ -7,7 +7,8 @@
   "scripts": {
     "start": "cross-env TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register -r dotenv/config ./dist/index.js",
     "start:slack-transport": "cross-env TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register -r dotenv/config ./dist/utils/logger/slack-transport.js",
-    "start:prod": "cross-env NODE_ENV=production npm run start | npm run start:slack-transport",
+    "start:prod-logs": "cross-env NODE_ENV=production npm run start | npm run start:slack-transport",
+    "start:prod": "cross-env NODE_ENV=production npm run start",
     "build": "tsc",
     "build:watch:": "tsc --watch",
     "build:clean": "shx rm -rf dist/ coverage/ && npm run build",
