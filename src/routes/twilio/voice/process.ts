@@ -30,7 +30,6 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
 
     const logger: CustomFastifyLoggerInstance = request.log.child({ callId, from, to }) as any
 
-    logger.notifyOnSlack(`Testing info log`)
     logger.debug(`${direction} call: ${status}`)
 
     if (!isOngoing) {

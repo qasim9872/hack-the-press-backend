@@ -5,11 +5,12 @@ import Boom from "boom"
 
 import { CustomFastifyLoggerInstance } from "@root/types/fastify.types"
 
-export async function getResponse(logger: CustomFastifyLoggerInstance, to: string, intent: string) {
+export async function getResponse(logger: CustomFastifyLoggerInstance, to: string, intent: string, input?: string) {
   const bot = await MyBotModel.findByPhoneNumber(to)
 
   if (!bot) {
     const message = `No bot found for phone number: ${to}`
+    logger.error(message)
     throw new Boom(message, {
       statusCode: 400,
       message,
@@ -18,14 +19,24 @@ export async function getResponse(logger: CustomFastifyLoggerInstance, to: strin
 
   logger.info(`found bot with id: ${bot.id} for phone number ${to}`)
 
-  const intentAnswerPair = bot.findIntent(intent)
+  let intentAnswerPair = bot.findIntent(intent)
 
   if (!intentAnswerPair) {
-    const message = `No match found for intent: ${intent}`
-    throw new Boom(message, {
-      statusCode: 400,
-      message,
-    })
+    const message = `Intent Answer Pair is not configured for intent: ${intent}. will switch to response for no match`
+    logger.warn(message)
+
+    intentAnswerPair = bot.findIntent("NO_MATCH")
+
+    if (!intentAnswerPair) {
+      throw new Boom(message, {
+        statusCode: 400,
+        message: `NO_MATCH intent not configured`,
+      })
+    }
+  }
+
+  if (["NO_MATCH", "NO_INPUT"].includes(intent)) {
+    logger.warn(`WARNING: intent classified as: ${intent}. ${input}`)
   }
 
   // create response
@@ -44,9 +55,6 @@ export async function process(logger: CustomFastifyLoggerInstance, to: string, i
   const { intent } = top
 
   logger.info(`top intent: ${intent}`)
-  if (["NO_MATCH", "NO_INPUT"].includes(intent)) {
-    logger.warn(`WARNING: intent classified as: ${intent}. ${input}`)
-  }
 
-  return getResponse(logger, to, intent)
+  return getResponse(logger, to, intent, input)
 }
