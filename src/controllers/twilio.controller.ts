@@ -1,5 +1,5 @@
 import { ACCOUNT_SID, AUTH_TOKEN, TTS_ATTRIBUTES, STT_LANGUAGE } from "@config/twilio.config"
-import { IntentAnswerPair } from "@root/models/intent-answer-pair"
+import { IntentAnswerPair, TransferWindow } from "@root/models/intent-answer-pair"
 import Boom from "boom"
 import { FastifyLoggerInstance } from "fastify"
 import twilio from "twilio"
@@ -26,6 +26,11 @@ export function sayText(voiceResponse: VoiceResponse, text: string, attributes =
     return voiceResponse.say(attributes, text)
 }
 
+export function checkTranferAllowed(transferWindow: TransferWindow, currentHour: number) {
+
+    return currentHour >= transferWindow.start && currentHour <= transferWindow.end
+}
+
 export function createResponse(logger: FastifyLoggerInstance, intentAnswerPair: IntentAnswerPair) {
     const voiceResponse = new VoiceResponseConstruct()
 
@@ -33,23 +38,34 @@ export function createResponse(logger: FastifyLoggerInstance, intentAnswerPair: 
     const hangup = config?.hangup || false
     const transfer = config?.transfer || false
     const transferPreferences = config?.transferPreferences
+    const transferWindow = transferPreferences?.transferWindow
+    const transferAllowed = transfer && transferWindow ? checkTranferAllowed(transferWindow, (new Date).getHours()) : false
+
     let ending = false // only add gather if ending is false
 
     // add the text response as the first part
-    sayText(voiceResponse, message.join(``))
+    if (transfer && !transferAllowed) {
+        sayText(voiceResponse, "Calls can not be transferred right now. Please try again later. Is there anything else i can help you with?")
+    }
+    else {
+        sayText(voiceResponse, message.join(""))
+    }
 
     // TODO - handle transfer
     if (transfer) {
         const transferTarget = transferPreferences?.transferTarget
-
         if (!transferTarget) {
             throw new Boom(`No transfer target defined.`)
         }
-
-        logger.info(`transferring call to: ${transferTarget}`)
-        // TODO - look into doing warm transfers
-        voiceResponse.dial(transferTarget)
-        ending = true
+        if (transferAllowed) {
+            logger.info(`transferring call to: ${transferTarget}`)
+            // TODO - look into doing warm transfers
+            voiceResponse.dial(transferTarget)
+            ending = true
+        }
+        else {
+            logger.info('Not transferring call due to transfer window restriction')
+        }
     }
 
     if (hangup) {

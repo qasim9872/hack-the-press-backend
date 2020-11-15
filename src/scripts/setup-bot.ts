@@ -5,8 +5,8 @@ import logger from "@utils/logger"
 
 const name = "my-voice-bot"
 const details = "my first voice bot"
-const phoneNumber = "+447453528748"
-const transferTarget = "+447479481652"
+const phoneNumber = "+447401158336"
+const transferTarget = "+447459130336"
 
 enum INTENTS {
     GENERAL_GREETINGS = "General_Greetings",
@@ -50,22 +50,22 @@ const special: { [key: string]: any } = {
     },
 }
 
-;(async function run() {
-    await connectMongo(DB_URI)
+    ; (async function run() {
+        await connectMongo(DB_URI)
 
-    let bot = await MyBotModel.findByPhoneNumber(phoneNumber)
+        let bot = await MyBotModel.findByPhoneNumber(phoneNumber)
 
-    if (!bot) {
-        logger.info(`creating bot. Bot with phone number: ${phoneNumber} doesn't exist`)
-        bot = await MyBotModel.create({ name, details, phoneNumbers: [phoneNumber], intentAnswerPairs: [] })
-    }
+        if (!bot) {
+            logger.info(`creating bot. Bot with phone number: ${phoneNumber} doesn't exist`)
+            bot = await MyBotModel.create({ name, details, phoneNumbers: [phoneNumber], intentAnswerPairs: [] })
+        }
 
-    logger.info(`bot with phone number: ${phoneNumber} has id: ${bot.id}`)
+        logger.info(`bot with phone number: ${phoneNumber} has id: ${bot.id}`)
 
-    for (const [intent, response] of Object.entries(map)) {
-        logger.debug(`Adding intent: ${intent} => ${response}`)
-        await bot?.addResponse(intent, [response], special[intent], true, true)
-    }
+        for (const [intent, response] of Object.entries(map)) {
+            logger.debug(`Adding intent: ${intent} => ${response}`)
+            await bot?.addResponse(intent, [response], special[intent], true, true)
+        }
 
-    disconnectMongo()
-})()
+        disconnectMongo()
+    })()
