@@ -5,6 +5,9 @@ export const logger = pino({
   name: NAME,
   level: LOG_LEVEL,
   prettyPrint: !IS_PROD,
+  customLevels: {
+    notifyOnSlack: 35,
+  },
 })
 
 export default logger

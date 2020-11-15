@@ -4,6 +4,7 @@ import { getRouteFromFileName } from "@utils/helpers"
 import { init, process } from "@controllers/conversation.controller"
 import { BodySchema, TwilioRequest } from "@root/interfaces/twilio.interface"
 import { AutoloadPluginOptions } from "fastify-autoload"
+import { CustomFastifyLoggerInstance } from "@root/types/fastify.types"
 
 const ROUTE = getRouteFromFileName(__filename)
 
@@ -27,8 +28,9 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
 
     const input = speech || digits || ""
 
-    const logger = request.log.child({ callId, from, to })
+    const logger: CustomFastifyLoggerInstance = request.log.child({ callId, from, to }) as any
 
+    logger.notifyOnSlack(`Testing info log`)
     logger.debug(`${direction} call: ${status}`)
 
     if (!isOngoing) {

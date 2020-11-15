@@ -2,7 +2,7 @@ import { API_KEY, URL, ASSISTANT_ID, CONFIDENCE_THRESHOLD } from "@root/config/n
 import AssistantV2 from "ibm-watson/assistant/v2"
 import { IamAuthenticator } from "ibm-watson/auth"
 import assert from "assert"
-import { FastifyLoggerInstance } from "fastify"
+import { CustomFastifyLoggerInstance } from "@root/types/fastify.types"
 
 const assistant = new AssistantV2({
   version: "2020-08-01",
@@ -20,7 +20,7 @@ export function getMockIntent(intent: string) {
   }
 }
 
-export async function classify(logger: FastifyLoggerInstance, text: string, assistantId = ASSISTANT_ID) {
+export async function classify(logger: CustomFastifyLoggerInstance, text: string, assistantId = ASSISTANT_ID) {
   if (!text) {
     return {
       text,

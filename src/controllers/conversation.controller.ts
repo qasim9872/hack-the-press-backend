@@ -1,10 +1,11 @@
 import { classify } from "./nlp.controller"
 import { MyBotModel } from "../models/my-bot.model"
 import { createResponse } from "./twilio.controller"
-import { FastifyLoggerInstance } from "fastify"
 import Boom from "boom"
 
-export async function getResponse(logger: FastifyLoggerInstance, to: string, intent: string) {
+import { CustomFastifyLoggerInstance } from "@root/types/fastify.types"
+
+export async function getResponse(logger: CustomFastifyLoggerInstance, to: string, intent: string) {
   const bot = await MyBotModel.findByPhoneNumber(to)
 
   if (!bot) {
@@ -31,18 +32,21 @@ export async function getResponse(logger: FastifyLoggerInstance, to: string, int
   return createResponse(logger, intentAnswerPair)
 }
 
-export async function init(logger: FastifyLoggerInstance, to: string) {
+export async function init(logger: CustomFastifyLoggerInstance, to: string) {
   const greetings = "General_Greetings"
 
   return getResponse(logger, to, greetings)
 }
 
-export async function process(logger: FastifyLoggerInstance, to: string, input: string) {
+export async function process(logger: CustomFastifyLoggerInstance, to: string, input: string) {
   const { top } = await classify(logger, input)
 
   const { intent } = top
 
   logger.info(`top intent: ${intent}`)
+  if (["NO_MATCH", "NO_INPUT"].includes(intent)) {
+    logger.warn(`WARNING: intent classified as: ${intent}. ${input}`)
+  }
 
   return getResponse(logger, to, intent)
 }

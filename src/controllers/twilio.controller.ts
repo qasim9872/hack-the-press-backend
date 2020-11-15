@@ -1,7 +1,7 @@
 import { ACCOUNT_SID, AUTH_TOKEN, TTS_ATTRIBUTES, STT_LANGUAGE } from "@config/twilio.config"
 import { IntentAnswerPair, TransferWindow } from "@root/models/intent-answer-pair"
+import { CustomFastifyLoggerInstance } from "@root/types/fastify.types"
 import Boom from "boom"
-import { FastifyLoggerInstance } from "fastify"
 import twilio from "twilio"
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse"
 
@@ -30,7 +30,7 @@ export function checkTranferAllowed(transferWindow: TransferWindow, currentHour:
   return currentHour >= transferWindow.start && currentHour <= transferWindow.end
 }
 
-export function createResponse(logger: FastifyLoggerInstance, intentAnswerPair: IntentAnswerPair) {
+export function createResponse(logger: CustomFastifyLoggerInstance, intentAnswerPair: IntentAnswerPair) {
   const voiceResponse = new VoiceResponseConstruct()
 
   const { response: message, config } = intentAnswerPair
