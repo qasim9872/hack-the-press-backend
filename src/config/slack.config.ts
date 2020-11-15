@@ -1,6 +1,7 @@
 import config from "config"
 
 interface SlackChannels {
+  [key: string]: string
   INFO: string
   WARN: string
   ERROR: string

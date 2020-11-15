@@ -10,8 +10,10 @@ import { createApp } from "./app"
 
   await app.listen(PORT, "0.0.0.0")
 
-  app.blipp()
-  !IS_PROD && app.swagger()
+  if (!IS_PROD) {
+    app.blipp()
+    app.swagger()
+  }
 
   logger.info(`API is running in ${NODE_ENV} mode and is available at ${PORT}`)
 })()

@@ -15,7 +15,9 @@ export default async function notifyOnSlack(message: string, channelId: string =
     },
   }
 
-  await axios(config)
+  await axios(config).catch((err) => {
+    console.log(`error occurred sending message to slack`, err)
+  })
 
   // Allows usage with winston transport
   if (callback) {

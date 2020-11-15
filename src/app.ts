@@ -24,7 +24,7 @@ export async function createApp() {
 
   // plugins
   app.register(helmet)
-  app.register(blipp)
+  !IS_PROD && app.register(blipp)
   app.register(boom)
   app.register(health)
   app.register(formbody)
