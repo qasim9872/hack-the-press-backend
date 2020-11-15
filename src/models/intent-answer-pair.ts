@@ -1,9 +1,9 @@
-import { prop, DocumentType } from "@typegoose/typegoose"
+import { prop } from "@typegoose/typegoose"
 
-// Window for transfering calls
+// Window for transferring calls
 // Denoted with hours eg 19, 23, 08
 export interface TransferWindow {
-  start: number,
+  start: number
   end: number
 }
 
