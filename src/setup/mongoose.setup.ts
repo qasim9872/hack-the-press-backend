@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import logger from "../utils/logger"
+import logger from "@utils/logger"
 
 // Create the database connection
 export async function connectMongo(dbURI: string) {
@@ -25,8 +25,7 @@ export async function connectMongo(dbURI: string) {
     })
 }
 
-export function disconnectMongo() {
-    mongoose.connection.close(() => {
-        logger.info("Mongoose default connection disconnected through app termination")
-    })
+export async function disconnectMongo() {
+    logger.info("Mongoose default connection disconnected through app termination")
+    await mongoose.connection.close()
 }

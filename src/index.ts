@@ -8,7 +8,7 @@ import { createApp } from "./app"
 
     const app = await createApp()
 
-    await app.listen(PORT)
+    await app.listen(PORT, "0.0.0.0")
 
     app.blipp()
     !IS_PROD && app.swagger()
@@ -17,8 +17,8 @@ import { createApp } from "./app"
 })()
 
 // If the Node process ends, close the Mongoose connection
-process.on("SIGINT", () => {
+process.on("SIGINT", async () => {
     logger.warn(`SIGINT received - closing app`)
-    disconnectMongo()
+    await disconnectMongo()
     process.exit(0)
 })
