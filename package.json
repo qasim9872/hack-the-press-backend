@@ -5,7 +5,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "start": "node -r tsconfig-paths/register -r dotenv/config",
+        "start": "cross-env TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register -r dotenv/config -r ./dist/index.js",
         "build": "tsc",
         "build:watch:": "tsc --watch",
         "build:clean": "shx rm -rf dist/ coverage/ && npm run build",
@@ -29,6 +29,7 @@
         "@types/boom": "^7.3.0",
         "boom": "^7.3.0",
         "config": "^3.3.2",
+        "cross-env": "^7.0.2",
         "dotenv": "^8.2.0",
         "fastify": "^3.8.0",
         "fastify-autoload": "^3.3.1",

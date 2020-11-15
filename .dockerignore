@@ -1,2 +1,15 @@
-node_modules
+# Project ignores
+.vscode
+
+# Dependency directories
+node_modules/
+
+# Node Version Manager
+.nvmrc
+
+# Yarn
+yarn.lock
+
+# NPM
 npm-debug.log
+package-lock.json
