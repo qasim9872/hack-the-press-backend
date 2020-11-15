@@ -2,5 +2,10 @@
     "Image": {
         "Name": "617857319222.dkr.ecr.us-east-1.amazonaws.com/myvoicebot-api:latest",
         "Update": "true"
-    }
+    },
+    "Ports": [
+        {
+            "ContainerPort": "5000"
+        }
+    ]
 }
