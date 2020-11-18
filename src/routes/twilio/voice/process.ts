@@ -4,7 +4,7 @@ import { getRouteFromFileName } from "@utils/helpers"
 import { init, process } from "@controllers/conversation.controller"
 import { BodySchema, TwilioRequest } from "@root/interfaces/twilio.interface"
 import { AutoloadPluginOptions } from "fastify-autoload"
-import { CustomFastifyLoggerInstance } from "@root/types/fastify.types"
+import PinoChildLogger from "@root/utils/logger/child-wrapper"
 
 const ROUTE = getRouteFromFileName(__filename)
 
@@ -28,7 +28,7 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
 
     const input = speech || digits || ""
 
-    const logger: CustomFastifyLoggerInstance = request.log.child({ callId, from, to }) as any
+    const logger = new PinoChildLogger(request.log, { callId, from, to })
 
     logger.debug(`${direction} call: ${status}`)
 
