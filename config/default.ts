@@ -37,7 +37,7 @@ export default {
     ACCOUNT_SID: "account-sid",
     AUTH_TOKEN: "auth-token",
     TTS: {
-      VOICE: "Polly.Amy",
+      VOICE: "Polly.Amy-Neural",
       LANGUAGE: "en-GB",
     },
     STT: {
