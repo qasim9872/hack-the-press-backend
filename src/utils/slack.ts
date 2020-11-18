@@ -25,3 +25,8 @@ export default async function notifyOnSlack(message: string, channelId: string =
     callback()
   }
 }
+
+export const notifyIfProd = (message: string, channelId = SLACK_CHANNELS.INFO) => notifyOnSlack(message, channelId)
+export const notifyInfo = (message: string) => notifyIfProd(message, SLACK_CHANNELS.INFO)
+export const notifyWarning = (message: string) => notifyIfProd(message, SLACK_CHANNELS.WARN)
+export const notifyError = (message: string) => notifyIfProd(message, SLACK_CHANNELS.ERROR)
