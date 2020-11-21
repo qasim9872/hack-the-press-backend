@@ -1,5 +1,5 @@
 import { DB_URI } from "@config/database.config"
-import { connectMongo, disconnectMongo } from "./setup/mongoose.setup"
+import { connectMongo, disconnectMongo } from "./plugin/mongoose.plugin"
 import { NODE_ENV, PORT, IS_PROD } from "@config/app.config"
 import logger from "@utils/logger"
 import { createApp } from "./app"

@@ -1,5 +1,5 @@
 import { DB_URI } from "@config/database.config"
-import { connectMongo, disconnectMongo } from "@root/setup/mongoose.setup"
+import { connectMongo, disconnectMongo } from "@root/plugin/mongoose.plugin"
 import { MyBotModel } from "@root/models/my-bot.model"
 import logger from "@utils/logger"
 
