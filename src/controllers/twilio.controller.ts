@@ -1,7 +1,7 @@
+import Boom from "boom"
 import { ACCOUNT_SID, AUTH_TOKEN, TTS_ATTRIBUTES, STT_LANGUAGE } from "@config/twilio.config"
 import { IntentAnswerPair, TransferWindow } from "@root/models/intent-answer-pair"
-import PinoChildLogger from "@root/utils/logger/child-wrapper"
-import Boom from "boom"
+import { CustomLogger } from "@utils/logger/helper"
 import twilio from "twilio"
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse"
 
@@ -30,7 +30,7 @@ export function checkTranferAllowed(transferWindow: TransferWindow, currentHour:
   return currentHour >= transferWindow.start && currentHour <= transferWindow.end
 }
 
-export function createResponse(logger: PinoChildLogger, intentAnswerPair: IntentAnswerPair) {
+export function createResponse(logger: CustomLogger, intentAnswerPair: IntentAnswerPair) {
   const voiceResponse = new VoiceResponseConstruct()
 
   const { response: message, config } = intentAnswerPair
@@ -61,6 +61,8 @@ export function createResponse(logger: PinoChildLogger, intentAnswerPair: Intent
     }
     if (transferAllowed) {
       logger.info(`transferring call to: ${transferTarget}`)
+      logger.slack.info(`transferring call to: ${transferTarget}`)
+
       // TODO - look into doing warm transfers
       voiceResponse.dial(transferTarget)
       ending = true
