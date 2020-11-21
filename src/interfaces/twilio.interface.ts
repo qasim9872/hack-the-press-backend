@@ -1,6 +1,10 @@
 import { Type, Static } from "@sinclair/typebox"
 import { FastifyRequest } from "fastify/types/request"
 
+export const HeaderSchema = Type.Object({
+  "x-twilio-signature": Type.String(),
+})
+
 export const BodySchema = Type.Object({
   Called: Type.Optional(Type.String()),
   CalledCountry: Type.Optional(Type.String()),
@@ -23,8 +27,11 @@ export const BodySchema = Type.Object({
   Confidence: Type.Optional(Type.Number()),
 })
 
+export type IHeader = Static<typeof HeaderSchema>
+
 export type IBody = Static<typeof BodySchema>
 
 export type TwilioRequest = FastifyRequest<{
   Body: IBody
+  Headers: IHeader
 }>

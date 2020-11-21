@@ -27,11 +27,10 @@ export function createSlackLogger(meta: MetaInfo): SlackLogger {
 export type CustomLogger = FastifyLoggerInstance & { slack: SlackLogger }
 
 export function createChildLogger(logger: FastifyLoggerInstance, meta: MetaInfo): CustomLogger {
-  const child = logger.child(meta)
   const slack = createSlackLogger(meta)
 
-  return {
-    ...child, // spread the log functions into the object
-    slack,
-  }
+  const child: any = logger.child(meta)
+  child.slack = slack
+
+  return child
 }

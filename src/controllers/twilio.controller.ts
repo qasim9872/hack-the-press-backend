@@ -4,9 +4,14 @@ import { IntentAnswerPair, TransferWindow } from "@root/models/intent-answer-pai
 import { CustomLogger } from "@utils/logger/helper"
 import twilio from "twilio"
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse"
+import { IS_PROD } from "@root/config/app.config"
 
 const VoiceResponseConstruct = twilio.twiml.VoiceResponse
 export const client = twilio(ACCOUNT_SID, AUTH_TOKEN)
+
+export function validateRequest(signature: string, url: string, params: Record<string, any>) {
+  return IS_PROD ? twilio.validateRequest(AUTH_TOKEN, signature, url, params) : true
+}
 
 export function gather(voiceResponse: VoiceResponse) {
   return voiceResponse.gather({

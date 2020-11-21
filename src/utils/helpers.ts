@@ -1,4 +1,6 @@
+import { FastifyRequest } from "fastify"
 import { basename } from "path"
+import urlLib from "url"
 
 export function getRouteFromFileName(file: string) {
   let path = basename(file)
@@ -14,4 +16,16 @@ export function getRouteFromFileName(file: string) {
   }
 
   return path ? `/${path}` : "/"
+}
+
+export function extractRequestUri(request: FastifyRequest) {
+  const protocol = request.protocol
+  const host = request.headers.host
+  const pathname = request.url
+
+  return urlLib.format({
+    protocol,
+    host,
+    pathname,
+  })
 }
