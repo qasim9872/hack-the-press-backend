@@ -11,7 +11,7 @@ import { join } from "path"
 
 import logger from "./utils/logger"
 import { IS_PROD } from "@config/app.config"
-import swagger from "./plugin/swagger.plugin"
+import swagger from "./plugins/swagger.plugin"
 
 export async function createApp() {
   const app = fastify({ logger })

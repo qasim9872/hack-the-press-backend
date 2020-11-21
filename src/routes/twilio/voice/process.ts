@@ -5,12 +5,15 @@ import { getRouteFromFileName } from "@utils/helpers"
 import { init, process } from "@controllers/conversation.controller"
 import { BodySchema, TwilioRequest } from "@root/interfaces/twilio.interface"
 import { createChildLogger } from "@utils/logger/helper"
+import twilioWebhookPlugin from "@root/plugins/twilio.webhook.plugin"
 
 const ROUTE = getRouteFromFileName(__filename)
 
 const opts = { schema: { body: BodySchema } }
 
 const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
+  await app.register(twilioWebhookPlugin)
+
   app.post(ROUTE, opts, async function handler(request: TwilioRequest, reply: FastifyReply) {
     reply.header("Content-Type", "text/xml")
 
