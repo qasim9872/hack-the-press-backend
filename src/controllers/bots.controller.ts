@@ -19,6 +19,7 @@ export async function fetchAllBots(filter: GetBotsQueryFilter) {
     delete query.phoneNumber
   }
 
+  // TODO - use regex
   const bots = await MyBotModel.find(query)
 
   return bots.map(format)
@@ -66,4 +67,24 @@ export async function fetchBot(id: string) {
 }
 
 // export async function updateBot() {}
-// export async function deleteBot() {}
+export async function deleteBot(id: string) {
+  const bot = await MyBotModel.findByIdAndDelete(id).catch((err) => {
+    if (err.kind === "ObjectId") {
+      throw new Boom(`invalid id provided: ${id}`, {
+        statusCode: 400,
+        message: `invalid id provided: ${id}`,
+      })
+    }
+
+    throw err
+  })
+
+  if (!bot) {
+    throw new Boom(`Bot with id: ${id} doesn't exist`, {
+      statusCode: 400,
+      message: `Bot with id: ${id} doesn't exist`,
+    })
+  }
+
+  return bot
+}

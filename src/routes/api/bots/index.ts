@@ -1,4 +1,4 @@
-import { FastifyPluginAsync } from "fastify"
+import { FastifyPluginAsync, FastifyReply } from "fastify"
 
 import { AutoloadPluginOptions } from "fastify-autoload"
 import { getRouteFromFileName, unescapeValues } from "@utils/helpers"
@@ -41,10 +41,11 @@ const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
     return fetchAllBots(query)
   })
 
-  app.post(ROUTE, postOpts, async function handler(request: CreateBotRequest) {
+  app.post(ROUTE, postOpts, async function handler(request: CreateBotRequest, reply: FastifyReply) {
     const body = request.body
     request.log.info(body, `creating a new bot with the given values`)
 
+    reply.status(201)
     return createBot(body)
   })
 }

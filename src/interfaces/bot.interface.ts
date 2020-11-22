@@ -22,7 +22,7 @@ export const GetBotWithId = Type.Object({
 
 export type GetBotWithId = Static<typeof GetBotWithId>
 
-export type GetBotWithIdRequest = FastifyRequest<{
+export type BotWithIdRequest = FastifyRequest<{
   Params: GetBotWithId
 }>
 
