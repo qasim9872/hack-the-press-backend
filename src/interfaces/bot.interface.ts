@@ -1,7 +1,7 @@
 import { Type, Static } from "@sinclair/typebox"
 import { FastifyRequest } from "fastify/types/request"
 
-// Get
+// Get All
 
 export const GetBotsQueryFilter = Type.Object({
   name: Type.Optional(Type.String()),
@@ -12,6 +12,18 @@ export type GetBotsQueryFilter = Static<typeof GetBotsQueryFilter>
 
 export type GetBotsRequest = FastifyRequest<{
   Querystring: GetBotsQueryFilter
+}>
+
+// Get With Id
+
+export const GetBotWithId = Type.Object({
+  id: Type.String(),
+})
+
+export type GetBotWithId = Static<typeof GetBotWithId>
+
+export type GetBotWithIdRequest = FastifyRequest<{
+  Params: GetBotWithId
 }>
 
 // Create
@@ -26,6 +38,6 @@ export const CreateBotBody = Type.Object({
 
 export type CreateBotBody = Static<typeof CreateBotBody>
 
-export type createBotRequest = FastifyRequest<{
+export type CreateBotRequest = FastifyRequest<{
   Body: CreateBotBody
 }>

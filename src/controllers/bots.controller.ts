@@ -43,6 +43,27 @@ export async function createBot(botRequest: CreateBotBody) {
   return format(bot)
 }
 
-// export async function fetchBot() {}
+export async function fetchBot(id: string) {
+  const bot = await MyBotModel.findById(id).catch((err) => {
+    if (err.kind === "ObjectId") {
+      throw new Boom(`invalid id provided: ${id}`, {
+        statusCode: 400,
+        message: `invalid id provided: ${id}`,
+      })
+    }
+
+    throw err
+  })
+
+  if (!bot) {
+    throw new Boom(`Bot with id: ${id} doesn't exist`, {
+      statusCode: 400,
+      message: `Bot with id: ${id} doesn't exist`,
+    })
+  }
+
+  return bot
+}
+
 // export async function updateBot() {}
 // export async function deleteBot() {}
