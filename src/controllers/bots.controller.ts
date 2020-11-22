@@ -45,7 +45,17 @@ export async function createBot(botRequest: CreateBotBody) {
 }
 
 export async function fetchBot(id: string) {
-  const bot = await MyBotModel.findById(id).catch((err) => {
+  try {
+    const bot = await MyBotModel.findById(id)
+    if (!bot) {
+      throw new Boom(`Bot with id: ${id} doesn't exist`, {
+        statusCode: 400,
+        message: `Bot with id: ${id} doesn't exist`,
+      })
+    }
+
+    return bot
+  } catch (err) {
     if (err.kind === "ObjectId") {
       throw new Boom(`invalid id provided: ${id}`, {
         statusCode: 400,
@@ -54,21 +64,23 @@ export async function fetchBot(id: string) {
     }
 
     throw err
-  })
-
-  if (!bot) {
-    throw new Boom(`Bot with id: ${id} doesn't exist`, {
-      statusCode: 400,
-      message: `Bot with id: ${id} doesn't exist`,
-    })
   }
-
-  return bot
 }
 
 // export async function updateBot() {}
 export async function deleteBot(id: string) {
-  const bot = await MyBotModel.findByIdAndDelete(id).catch((err) => {
+  try {
+    const bot = await MyBotModel.findByIdAndDelete(id)
+
+    if (!bot) {
+      throw new Boom(`Bot with id: ${id} doesn't exist`, {
+        statusCode: 400,
+        message: `Bot with id: ${id} doesn't exist`,
+      })
+    }
+
+    return bot
+  } catch (err) {
     if (err.kind === "ObjectId") {
       throw new Boom(`invalid id provided: ${id}`, {
         statusCode: 400,
@@ -77,14 +89,5 @@ export async function deleteBot(id: string) {
     }
 
     throw err
-  })
-
-  if (!bot) {
-    throw new Boom(`Bot with id: ${id} doesn't exist`, {
-      statusCode: 400,
-      message: `Bot with id: ${id} doesn't exist`,
-    })
   }
-
-  return bot
 }

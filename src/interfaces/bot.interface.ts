@@ -26,6 +26,50 @@ export type BotWithIdRequest = FastifyRequest<{
   Params: GetBotWithId
 }>
 
+// Get With Intent Query
+
+export const BotIntentQuery = Type.Object({
+  intent: Type.Optional(Type.String()),
+})
+
+export type BotIntentQuery = Static<typeof BotIntentQuery>
+
+export type GetBotIntentRequest = FastifyRequest<{
+  Params: GetBotWithId
+  Querystring: BotIntentQuery
+}>
+
+// Post With Intent body
+
+export const PostIntentBody = Type.Object({
+  intent: Type.String(),
+  response: Type.Array(Type.String(), { minItems: 1 }),
+  config: Type.Optional(
+    Type.Object({
+      transfer: Type.Optional(Type.Boolean()),
+      transferPreferences: Type.Optional(
+        Type.Object({
+          transferTarget: Type.Optional(Type.String()),
+          transferWindow: Type.Optional(
+            Type.Object({
+              start: Type.Number(),
+              end: Type.Number(),
+            })
+          ),
+        })
+      ),
+      hangup: Type.Optional(Type.Boolean()),
+    })
+  ),
+})
+
+export type PostIntentBody = Static<typeof PostIntentBody>
+
+export type PostBotIntentRequest = FastifyRequest<{
+  Params: GetBotWithId
+  Body: PostIntentBody
+}>
+
 // Create
 
 export const CreateBotBody = Type.Object({
