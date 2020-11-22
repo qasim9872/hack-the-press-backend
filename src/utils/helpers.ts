@@ -29,3 +29,11 @@ export function extractRequestUri(request: FastifyRequest) {
     pathname,
   })
 }
+
+export function unescapeValues<T extends object>(obj: T): T {
+  return Object.entries(obj).reduce((agg: { [key: string]: string }, [key, value]) => {
+    agg[key] = unescape(value)
+
+    return agg
+  }, {}) as T
+}

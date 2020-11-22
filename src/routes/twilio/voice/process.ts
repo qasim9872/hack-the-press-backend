@@ -9,7 +9,14 @@ import twilioWebhookPlugin from "@root/plugins/twilio.webhook.plugin"
 
 const ROUTE = getRouteFromFileName(__filename)
 
-const opts = { schema: { body: BodySchema } }
+const opts = {
+  schema: {
+    tags: ["twilio"],
+    description: "Endpoint for processing user input that is sent by twilio",
+    summary: "handles twilio voice callback request",
+    body: BodySchema,
+  },
+}
 
 const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
   await app.register(twilioWebhookPlugin)
