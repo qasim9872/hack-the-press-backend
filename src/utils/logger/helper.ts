@@ -9,18 +9,25 @@ export interface MetaInfo {
   to: string
 }
 
+export type SlackLogFn = (message: string) => false | Promise<void>
+
 export interface SlackLogger {
-  info: (message: string) => false | Promise<void>
-  warn: (message: string) => false | Promise<void>
-  error: (message: string) => false | Promise<void>
+  info: SlackLogFn
+  warn: SlackLogFn
+  error: SlackLogFn
+}
+
+export function wrapWithPrefix(prefix: string, fn: SlackLogFn): SlackLogFn {
+  return (msg: string) => fn(`${prefix} ${msg}`)
 }
 
 export function createSlackLogger(meta: MetaInfo): SlackLogger {
-  // TODO - make slack logs contextual
+  const prefix = `[${meta.callId}: ${meta.from} => ${meta.to}] `
+
   return {
-    info,
-    warn,
-    error,
+    info: wrapWithPrefix(prefix, info),
+    warn: wrapWithPrefix(prefix, warn),
+    error: wrapWithPrefix(prefix, error),
   }
 }
 
