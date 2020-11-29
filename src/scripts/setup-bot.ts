@@ -2,6 +2,7 @@ import { DB_URI } from "@config/database.config"
 import { connectMongo, disconnectMongo } from "@root/plugins/mongoose.plugin"
 import { MyBotModel } from "@root/models/my-bot.model"
 import logger from "@utils/logger"
+import { loadIntents } from "./load-intent-response"
 
 const name = "my-voice-bot"
 const details = "my first voice bot"
@@ -54,6 +55,7 @@ const special: { [key: string]: any } = {
   await connectMongo(DB_URI)
 
   let bot = await MyBotModel.findByPhoneNumber(phoneNumber)
+  const intentResponseMap = await loadIntents()
 
   if (!bot) {
     logger.info(`creating bot. Bot with phone number: ${phoneNumber} doesn't exist`)
@@ -62,9 +64,9 @@ const special: { [key: string]: any } = {
 
   logger.info(`bot with phone number: ${phoneNumber} has id: ${bot.id}`)
 
-  for (const [intent, response] of Object.entries(map)) {
+  for (const [intent, response] of intentResponseMap.entries()) {
     logger.debug(`Adding intent: ${intent} => ${response}`)
-    await bot?.addResponse(intent, [response], special[intent], true, true)
+    await bot?.addResponse(intent, response, special[intent], true, true)
   }
 
   disconnectMongo()
