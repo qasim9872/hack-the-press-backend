@@ -27,7 +27,7 @@ export async function loadIntents() {
     response = response.startsWith('"') ? response.slice(1) : response
     response = response.endsWith('"') ? response.slice(0, -1) : response
 
-    if (!response) {
+    if (!response || ["\r", "\t", "\n"].includes(response)) {
       continue
     }
 
