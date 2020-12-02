@@ -1,3 +1,4 @@
+import { IS_PROD, PROTOCOL, HOST } from "@root/config/app.config"
 import { FastifyRequest } from "fastify"
 import { basename } from "path"
 import urlLib from "url"
@@ -19,8 +20,9 @@ export function getRouteFromFileName(file: string) {
 }
 
 export function extractRequestUri(request: FastifyRequest) {
-  const protocol = request.protocol
-  const host = request.headers.host
+  // use protocol and host from config on deployed environment
+  const protocol = IS_PROD ? PROTOCOL : request.protocol
+  const host = IS_PROD ? HOST : request.headers.host
   const pathname = request.url
 
   return urlLib.format({

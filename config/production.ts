@@ -1,3 +1,6 @@
 export default {
-    APP: {},
+  APP: {
+    PROTOCOL: "https",
+    HOST: "api.myvoicebot.co.uk",
+  },
 }

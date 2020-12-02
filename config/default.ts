@@ -2,6 +2,7 @@ const PORT = 5000
 
 export default {
   APP: {
+    PROTOCOL: "http",
     HOST: `localhost:${PORT}`,
     PORT,
     LOG_LEVEL: "debug",

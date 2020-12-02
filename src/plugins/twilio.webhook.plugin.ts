@@ -14,7 +14,7 @@ const twilioWebhookPlugin: FastifyPluginCallback<PluginOptions> = (app, options,
     const url = extractRequestUri(request)
 
     if (!validateRequest(signature, url, params)) {
-      request.log.warn(`request did not originate from twilio`)
+      request.log.warn({ url }, `request did not originate from twilio`)
       throw new Boom(`Twilio webhook validation has failed`, {
         statusCode: 401,
         message: `please validate the request origin`,
