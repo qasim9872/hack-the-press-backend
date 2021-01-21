@@ -22,6 +22,7 @@ export const BodySchema = Type.Object({
   ToCountry: Type.Optional(Type.String()),
 
   // input values
+  Language: Type.Optional(Type.String()),
   Digits: Type.Optional(Type.String()),
   SpeechResult: Type.Optional(Type.String()),
   Confidence: Type.Optional(Type.Number()),
