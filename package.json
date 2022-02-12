@@ -1,5 +1,5 @@
 {
-  "name": "my-voice-bot",
+  "name": "hack-the-press-api",
   "description": "This is the backend for a poc",
   "version": "1.0.0",
   "main": "dist/index.js",
