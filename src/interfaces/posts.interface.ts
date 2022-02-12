@@ -15,6 +15,7 @@ export const GetPostsQueryFilter = Type.Object({
 
   lat: Type.Optional(Type.String()),
   long: Type.Optional(Type.String()),
+  radius: Type.Optional(Type.Number()),
 })
 
 export type GetPostsQueryFilter = Static<typeof GetPostsQueryFilter>

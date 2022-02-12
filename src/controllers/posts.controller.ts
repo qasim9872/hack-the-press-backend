@@ -30,11 +30,13 @@ export async function search(filter: GetPostsQueryFilter) {
     query.location = {
       $near: {
         $geometry: { type: "Point", coordinates },
+        $maxDistance: query.radius,
       },
     }
 
     delete query.lat
     delete query.long
+    delete query.radius
   }
 
   const posts = await PostsModel.find(query)
