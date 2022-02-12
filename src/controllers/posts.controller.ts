@@ -5,7 +5,7 @@ import Boom from "boom"
 
 export function format(post: Posts) {
   //  create format function
-  const result = post.toJSON()
+  const result = post.toJSON() as any
 
   const [long, lat] = result.location.coordinates
   result.long = long
