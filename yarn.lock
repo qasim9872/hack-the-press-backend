@@ -723,10 +723,17 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongoose@^5.10.0":
-  "integrity" "sha512-inJhRgmsYC8JWB3ABUjCreNmMoML/ffu/y8LtTYe7GAW6/B8rVLQU16am73kkceasKX75p41WjU8yquUx/CSAw=="
-  "resolved" "https://registry.npmjs.org/@types/mongoose/-/mongoose-5.10.0.tgz"
-  "version" "5.10.0"
+"@types/mongoose-geojson-schema@^2.1.5":
+  "integrity" "sha512-S2dRYUxCQvrJEaJzdm2RPqColQ9AWtpiUV8MXezH7CqnS6xIVr0HSWttOGqDEBm40tL/KlTis/j/ZWJPXjD0TA=="
+  "resolved" "https://registry.npmjs.org/@types/mongoose-geojson-schema/-/mongoose-geojson-schema-2.1.5.tgz"
+  "version" "2.1.5"
+  dependencies:
+    "@types/mongoose" "5.10.5"
+
+"@types/mongoose@^5.10.0", "@types/mongoose@5.10.5":
+  "integrity" "sha512-37QMIA954T3n+HSksSNLlxZsqF8fMJu5S4dyPBod6gRxGtsXlQ9jUtL8BE8Seimv99u79eLXI3bggoCnSQ/fxQ=="
+  "resolved" "https://registry.npmjs.org/@types/mongoose/-/mongoose-5.10.5.tgz"
+  "version" "5.10.5"
   dependencies:
     "@types/mongodb" "*"
     "@types/node" "*"
@@ -4498,6 +4505,11 @@
     "safe-buffer" "^5.1.2"
   optionalDependencies:
     "saslprep" "^1.0.0"
+
+"mongoose-geojson-schema@^2.1.7":
+  "integrity" "sha512-PsJSco/3t0jTso6FELyaOzBP11U3LuyNvF/rvAxYZNe/BRbor9Y2YACN/vA+aDOuPkLkIod1tVq1MOBdEax4Yg=="
+  "resolved" "https://registry.npmjs.org/mongoose-geojson-schema/-/mongoose-geojson-schema-2.1.7.tgz"
+  "version" "2.1.7"
 
 "mongoose-legacy-pluralize@1.0.2":
   "integrity" "sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ=="
