@@ -4,8 +4,19 @@ import { CreatePostBody, GetPostsQueryFilter } from "@root/interfaces/posts.inte
 import Boom from "boom"
 
 export function format(post: Posts) {
-  // TODO - create format function
-  return post
+  //  create format function
+  const result = post.toJSON()
+
+  const [long, lat] = result.location.coordinates
+  result.long = long
+  result.lat = lat
+
+  result.id = result._id
+
+  delete result.location
+  delete result._id
+
+  return result
 }
 
 export async function search(filter: GetPostsQueryFilter) {
@@ -28,7 +39,7 @@ export async function search(filter: GetPostsQueryFilter) {
 
   const posts = await PostsModel.find(query)
 
-  return posts
+  return posts.map(format)
 }
 
 export async function createCreatePostBody(postRequest: CreatePostBody) {
@@ -46,11 +57,6 @@ export async function createCreatePostBody(postRequest: CreatePostBody) {
     tags: postRequest.tags,
 
     location,
-
-    // loc: {
-    //   type: "Point",
-    //   coordinates: [-113.806458, 44.847784],
-    // },
   } as any)
 
   return format(post)

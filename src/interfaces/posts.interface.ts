@@ -1,15 +1,14 @@
 import { Type, Static } from "@sinclair/typebox"
 import { FastifyRequest } from "fastify/types/request"
-import { Schema } from "mongoose"
 
 // Get All
 
 export const GetPostsQueryFilter = Type.Object({
-  name: Type.Optional(Type.String()),
-  text: Type.Optional(Type.String()),
+  // name: Type.Optional(Type.String()),
+  // text: Type.Optional(Type.String()),
 
-  title: Type.Optional(Type.String()),
-  locationName: Type.Optional(Type.String()),
+  // title: Type.Optional(Type.String()),
+  // locationName: Type.Optional(Type.String()),
 
   postingType: Type.Optional(Type.String()), // News | Event |  General
   tags: Type.Optional(Type.Array(Type.String())), // Historical Landmark | Food | Music | Charity Drop off
