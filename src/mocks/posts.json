@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Sanjeev",
+    "lat": "51.5251747",
+    "long": "-0.0714288",
+    "title": "title of post",
+    "text": "Here at the Hack!",
+    "locationName": "Newspeak House",
+    "postingType": "General",
+    "tags": [],
+    "createdAt": "new Date().toISOString()",
+    "updatedAt": "new Date().toISOString()"
+  },
+  {
+    "name": "Test 1",
+    "lat": "51.5251747",
+    "long": "-0.0714288",
+    "title": "title of post",
+    "text": "Here at the Hack!",
+    "locationName": "Newspeak House",
+    "postingType": "General",
+    "tags": [],
+    "createdAt": "new Date().toISOString()",
+    "updatedAt": "new Date().toISOString()"
+  },
+  {
+    "name": "Test 2",
+    "lat": "51.5251747",
+    "long": "-0.0714288",
+    "title": "title of post",
+    "text": "Here at the Hack!",
+    "locationName": "Newspeak House",
+    "postingType": "General",
+    "tags": [],
+    "createdAt": "new Date().toISOString()",
+    "updatedAt": "new Date().toISOString()"
+  }
+]
