@@ -54,7 +54,7 @@ export async function fetchPost(id: string) {
       })
     }
 
-    return post
+    return format(post)
   } catch (err) {
     if ((err as any).kind === "ObjectId") {
       throw new Boom(`invalid id provided: ${id}`, {

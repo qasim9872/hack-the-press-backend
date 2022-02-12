@@ -9,7 +9,7 @@ import {
   GetPostsRequest,
 } from "@root/interfaces/posts.interface"
 import { createCreatePostBody, search } from "@root/controllers/posts.controller"
-import { unescapeValues } from "../../utils/helpers"
+import { unescapeValues } from "../../../utils/helpers"
 
 const postOpts = {
   schema: {
