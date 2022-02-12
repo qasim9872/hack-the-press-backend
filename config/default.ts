@@ -6,24 +6,24 @@ export default {
     HOST: `localhost:${PORT}`,
     PORT,
     LOG_LEVEL: "debug",
-    NAME: "twilio-voice",
+    NAME: "hack-the-press",
   },
   DB: {
-    // mongodb+srv://api-user:<password>@cluster0.cwspa.mongodb.net/<dbname>?retryWrites=true&w=majority
-    HOST: "cluster0.cwspa.mongodb.net",
+    // mongodb+srv://admin:NL9pUs9itEtMj67k@cluster0.rz5w4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+    HOST: "cluster0.rz5w4.mongodb.net",
     PORT: "27017",
-    NAME: "twilio",
+    NAME: "hack-the-press",
     CREDS: {
-      USERNAME: "api-user",
-      PASSWORD: "g3o3dAbSV1H2dTY0",
+      USERNAME: "admin",
+      PASSWORD: "NL9pUs9itEtMj67k",
     },
   },
   SLACK: {
-    URL: "https://slack.com/api/chat.postMessage",
+    URL: "",
     CHANNELS: {
-      INFO: "C01EYNFAYJ0",
-      WARN: "C01FGD1BSKS",
-      ERROR: "C01F56T2TU1",
+      INFO: "",
+      WARN: "",
+      ERROR: "",
     },
     TOKEN: "",
   },
