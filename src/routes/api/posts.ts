@@ -32,10 +32,16 @@ const getOpts = {
 const routePlugin: FastifyPluginAsync<AutoloadPluginOptions> = async (app) => {
   const ROUTE = getRouteFromFileName(__filename)
   app.get(ROUTE, getOpts, async (request: GetPostsRequest) => {
-    const query = unescapeValues(request.query)
-    request.log.info(query, `searching for bots with given filter`)
+    request.log.info(request.query, `searching for bots with given filter`)
 
-    return search(query)
+    const query = unescapeValues(request.query)
+    const tags = query.tags?.split(",")
+
+    if (query.tags) {
+      ;(query as any)["tags"] = tags
+    }
+
+    return search(query as Omit<GetPostsQueryFilter, "tags"> & { tags?: string[] })
   })
 
   app.post(ROUTE, postOpts, async function handler(request: CreatePostRequest, reply: FastifyReply) {

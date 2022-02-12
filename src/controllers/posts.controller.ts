@@ -19,7 +19,7 @@ export function format(post: Posts) {
   return result
 }
 
-export async function search(filter: GetPostsQueryFilter) {
+export async function search(filter: Omit<GetPostsQueryFilter, "tags"> & { tags?: string[] }) {
   const query: { [key: string]: any } = {
     ...filter,
   }
@@ -42,6 +42,29 @@ export async function search(filter: GetPostsQueryFilter) {
   const posts = await PostsModel.find(query)
 
   return posts.map(format)
+}
+
+export async function fetchPost(id: string) {
+  try {
+    const post = await PostsModel.findById(id)
+    if (!post) {
+      throw new Boom(`Post with id: ${id} doesn't exist`, {
+        statusCode: 400,
+        message: `Post with id: ${id} doesn't exist`,
+      })
+    }
+
+    return post
+  } catch (err) {
+    if ((err as any).kind === "ObjectId") {
+      throw new Boom(`invalid id provided: ${id}`, {
+        statusCode: 400,
+        message: `invalid id provided: ${id}`,
+      })
+    }
+
+    throw err
+  }
 }
 
 export async function createCreatePostBody(postRequest: CreatePostBody) {

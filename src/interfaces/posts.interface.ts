@@ -11,7 +11,7 @@ export const GetPostsQueryFilter = Type.Object({
   // locationName: Type.Optional(Type.String()),
 
   postingType: Type.Optional(Type.String()), // News | Event |  General
-  tags: Type.Optional(Type.Array(Type.String())), // Historical Landmark | Food | Music | Charity Drop off
+  tags: Type.Optional(Type.String()), // Historical Landmark | Food | Music | Charity Drop off
 
   lat: Type.Optional(Type.String()),
   long: Type.Optional(Type.String()),
