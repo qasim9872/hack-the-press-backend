@@ -6,6 +6,7 @@ import health from "fastify-healthcheck"
 import autoLoad from "fastify-autoload"
 import middie from "middie"
 import formbody from "fastify-formbody"
+import cors from "fastify-cors"
 
 import { join } from "path"
 
@@ -30,6 +31,7 @@ export async function createApp() {
   await app.register(middie)
 
   // plugins
+  app.register(cors)
   app.register(helmet)
   !IS_PROD && app.register(blipp)
   app.register(boom)
