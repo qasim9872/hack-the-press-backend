@@ -1,25 +1,13 @@
-import timestamps from "mongoose-timestamp"
-import { plugin, prop, getModelForClass, ReturnModelType, setGlobalOptions, Severity } from "@typegoose/typegoose"
+import { Document, Schema, model } from "mongoose"
 
-// This is to allow nested objects
-setGlobalOptions({ options: { allowMixed: Severity.ALLOW } })
-
-export interface Posts {
+export interface Posts extends Document {
   name: string
   text: string
 }
 
-@plugin(timestamps)
-export class MyBot implements MyBot {
-  @prop({ required: true })
-  public name!: string
+const postsSchema = new Schema({
+  name: { type: String, required: true },
+  text: { type: String, required: true },
+})
 
-  @prop({ required: true })
-  public text!: string
-
-  public static async findByPhoneNumber(this: ReturnModelType<typeof MyBot>, phoneNumber: string) {
-    return this.findOne({ phoneNumbers: phoneNumber }).exec()
-  }
-}
-
-export const MyBotModel = getModelForClass(MyBot)
+export const PostsModel = model<Posts>("Posts", postsSchema)
