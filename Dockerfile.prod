@@ -1,4 +1,5 @@
-FROM 617857319222.dkr.ecr.us-east-1.amazonaws.com/node14
+# FROM 617857319222.dkr.ecr.us-east-1.amazonaws.com/node14
+FROM node:14
 
 # Create app directory
 WORKDIR /usr/api
