@@ -9,8 +9,8 @@ export default {
     NAME: "hack-the-press",
   },
   DB: {
-    // mongodb+srv://admin:NL9pUs9itEtMj67k@cluster0.rz5w4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-    HOST: "cluster0.rz5w4.mongodb.net",
+    // mongodb+srv://admin:NL9pUs9itEtMj67k@hack-the-press-api.iy8id.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+    HOST: "hack-the-press-api.iy8id.mongodb.net",
     PORT: "27017",
     NAME: "hack-the-press",
     CREDS: {
