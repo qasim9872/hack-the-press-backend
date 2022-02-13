@@ -3,8 +3,10 @@ This project was made at the [HackThePress 2022 Hackathon](https://www.hackthepr
 
 ## Terrace
 This application is an event based application aimed at publising a news feed to users with location and social media based information as a metric to reach the target audience.
-## Setup
-
+## Prerequisites
+- Npm
+- Nodejs
+- AWS Root User Access to the following tools: codepipeline, Codebase, EC2
 The event and development was sponsored by:
 
 | [ClearSky](https://www.clearskypublishing.co.uk/)  | [SocialSpider](http://socialspider.com/)         | [Newspeak House](https://newspeak.house/) |
