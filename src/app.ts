@@ -14,7 +14,7 @@ import logger from "./utils/logger"
 import swagger from "./plugins/swagger.plugin"
 
 export async function createApp() {
-  const app = fastify({ logger })
+  const app = fastify({ logger, ignoreTrailingSlash: true })
 
   // disable logs for health check endpoint
   app.addHook("onRoute", (opts: any) => {

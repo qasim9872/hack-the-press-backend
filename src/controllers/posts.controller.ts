@@ -30,7 +30,7 @@ export async function search(filter: Omit<GetPostsQueryFilter, "tags"> & { tags?
     query.location = {
       $near: {
         $geometry: { type: "Point", coordinates },
-        $maxDistance: query.radius,
+        ...(query.radius ? { $maxDistance: query.radius } : {}),
       },
     }
 

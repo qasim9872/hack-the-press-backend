@@ -1,3 +1,5 @@
 export default {
-  APP: {},
+  APP: {
+    HOST: "18.170.119.206",
+  },
 }
