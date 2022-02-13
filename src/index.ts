@@ -1,6 +1,6 @@
 import { DB_URI } from "@config/database.config"
 import { connectMongo, disconnectMongo } from "./plugins/mongoose.plugin"
-import { NODE_ENV, PORT, IS_PROD } from "@config/app.config"
+import { NODE_ENV, PORT } from "@config/app.config"
 import logger from "@utils/logger"
 import { createApp } from "./app"
 ;(async function initiateApp() {
@@ -10,10 +10,10 @@ import { createApp } from "./app"
 
   await app.listen(PORT, "0.0.0.0")
 
-  if (!IS_PROD) {
-    app.blipp()
-    app.swagger()
-  }
+  // if (!IS_PROD) {
+  app.blipp()
+  app.swagger()
+  // }
 
   logger.info(`API is running in ${NODE_ENV} mode and is available at ${PORT}`)
 })()

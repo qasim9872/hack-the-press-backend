@@ -11,7 +11,6 @@ import cors from "fastify-cors"
 import { join } from "path"
 
 import logger from "./utils/logger"
-import { IS_PROD } from "@config/app.config"
 import swagger from "./plugins/swagger.plugin"
 
 export async function createApp() {
@@ -26,14 +25,14 @@ export async function createApp() {
 
   // Only publish docs if running in non-prod mode
   // Ensure swagger is registered before the routes are set up
-  !IS_PROD && app.register(swagger)
+  app.register(swagger)
 
   await app.register(middie)
 
   // plugins
   app.register(cors)
   app.register(helmet)
-  !IS_PROD && app.register(blipp)
+  app.register(blipp)
   app.register(boom)
   app.register(health, {
     exposeUptime: true,
