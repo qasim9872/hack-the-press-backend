@@ -7,6 +7,7 @@ This application is an event based application aimed at publising a news feed to
 - Npm
 - Nodejs
 - AWS Root User Access to the following tools: codepipeline, Codebase, EC2
+
 The event and development was sponsored by:
 
 | [ClearSky](https://www.clearskypublishing.co.uk/)  | [SocialSpider](http://socialspider.com/)         | [Newspeak House](https://newspeak.house/) |
