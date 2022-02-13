@@ -18,6 +18,11 @@ export default {
       PASSWORD: "NL9pUs9itEtMj67k",
     },
   },
+  GEOLOCATION: {
+    BASE_URL: "https://maps.googleapis.com/maps/api/geocode/json?",
+    PLACES_BASE_URL: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?",
+    API_KEY: "",
+  },
   SLACK: {
     URL: "",
     CHANNELS: {

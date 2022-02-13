@@ -13,6 +13,10 @@
       "PASSWORD": "DB_PASSWORD"
     }
   },
+  "GEOLOCATION": {
+    "BASE_URL": "GEOLOCATION_BASE_URL",
+    "API_KEY": "GEOLOCATION_API_KEY"
+  },
   "SLACK": {
     "URL": "SLACK_URL",
     "CHANNELS": {
